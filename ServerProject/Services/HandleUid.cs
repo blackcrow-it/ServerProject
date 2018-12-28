@@ -28,11 +28,8 @@ namespace ServerProject.Services
                         {
                             var rl = reader.GetString(0);
                             var rls = reader.GetString(0);
-                            Console.WriteLine(rl);
                             var ln = rls.Length;
-                            Console.WriteLine(ln);
                             var stxt = rl.Substring(0, 3);
-                            Console.WriteLine(stxt);
                             string snum = rls.Substring(3, ln);
                             var n = Int64.Parse(snum);
                             n += 1;
