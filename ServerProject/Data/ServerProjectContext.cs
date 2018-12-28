@@ -15,6 +15,8 @@ namespace ServerProject.Models
         }
 
         public DbSet<ServerProject.Models.Accounts> Accounts { get; set; }
+        public DbSet<ServerProject.Models.RollNumberStudents> RollNumberStudents { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -61,7 +61,39 @@ namespace ServerProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                students.RollNumber = HandleUid.UidRollNumberStudent();
+                var data = _context.RollNumberStudents.OrderByDescending(r => r.Alphabet).FirstOrDefault();
+                if (data != null)
+                {
+                    if (data.Number < 1000)
+                    {
+                        data.Number++;
+                        data.UpdatedAt = DateTime.Now;
+                        students.RollNumber = data.Alphabet + data.Number.ToString().PadLeft(4, '0');
+                        _context.Update(data);
+                    }
+                    else
+                    {
+                        var alphabet = data.Alphabet;
+                        var roll = new RollNumberStudents
+                        {
+                            Alphabet = alphabet,
+                            Number = 1
+                        };
+                        roll.Alphabet++;
+                        students.RollNumber = roll.Alphabet + roll.Number.ToString().PadLeft(4, '0');
+                        _context.Add(roll);
+                    }
+                }
+                else
+                {
+                    var roll = new RollNumberStudents
+                    {
+                        Alphabet = 'A',
+                        Number = 1
+                    };
+                    students.RollNumber = roll.Alphabet + roll.Number.ToString().PadLeft(4, '0');
+                    _context.Add(roll);
+                }
                 _context.Add(students);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
