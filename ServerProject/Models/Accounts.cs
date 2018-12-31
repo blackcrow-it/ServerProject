@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace ServerProject.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Accounts
     {
         public Accounts()
@@ -17,7 +19,11 @@ namespace ServerProject.Models
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        [NotMapped]
+        [Compare("Password")]
         public string ConfirmPassword { get; set; }
+
+        public string Salt { get; set; }
         public int Role { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

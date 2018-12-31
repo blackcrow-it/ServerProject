@@ -9,24 +9,68 @@
 <h4>Accounts</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Create">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
                 <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
             </div>
-        </form>
-    </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Informations.FirstName" class="control-label"></label>
+                <input asp-for="Informations.FirstName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Informations.MiddleName" class="control-label"></label>
+                <input asp-for="Informations.MiddleName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Informations.LastName" class="control-label"></label>
+                <input asp-for="Informations.LastName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Informations.Gender" class="control-label"></label>
+                <select asp-for="Informations.Gender" class="form-control">
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                    <option value="2">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Informations.Birthday" class="control-label"></label>
+                <input asp-for="Informations.Birthday" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Informations.Email" class="control-label"></label>
+                <input asp-for="Informations.Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Informations.Address" class="control-label"></label>
+                <input asp-for="Informations.Address" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Informations.Phone" class="control-label"></label>
+                <input asp-for="Informations.Phone" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Informations.Avatar" class="control-label"></label>
+                <input asp-for="Informations.Avatar" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </form>
 </div>
 
 <div>

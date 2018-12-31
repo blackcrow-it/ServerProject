@@ -9,6 +9,14 @@ using ServerProject.Models;
 
 namespace ServerProject.Controllers
 {
+    using System.Security.Claims;
+
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Http;
+
+    using ServerProject.Security;
+
     public class AccountsController : Controller
     {
         private readonly ServerProjectContext _context;
@@ -21,7 +29,7 @@ namespace ServerProject.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Accounts.ToListAsync());
+            return View(await _context.Accounts.Include(m=>m.Informations).Include(s=>s.Students).ToListAsync());
         }
 
         // GET: Accounts/Details/5
@@ -31,8 +39,11 @@ namespace ServerProject.Controllers
             {
                 return NotFound();
             }
-
-            var accounts = await _context.Accounts
+            List<Marks> Mk = _context.Marks.Include(m=>m.Courses).ToList();
+            ViewBag.Mk = Mk;
+            List<StudentGrade> stusList = _context.StudentGrade.Include(g=>g.Grades).ToList();
+            ViewBag.Stus = stusList;
+            var accounts = await _context.Accounts.Include(m=>m.Informations).Include(s=>s.Students)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (accounts == null)
             {
@@ -47,20 +58,63 @@ namespace ServerProject.Controllers
         {
             return View();
         }
-
+        
+       
         // POST: Accounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,Password")] Accounts accounts)
+        public async Task<IActionResult> Create([Bind("Id,UserName,Password,ConfirmPassword,Informations,Students,Role")] Accounts accounts)
         {
             if (ModelState.IsValid)
             {
+                var students = new Students();
+                accounts.Salt = Handlepassword.GetInstance().GenerateSalt();
+                accounts.Password = Handlepassword.GetInstance()
+                .EncryptPassword(accounts.Password, accounts.Salt);
                 _context.Add(accounts);
+                await _context.SaveChangesAsync();
+                int Idacount = accounts.Id;
+                students.AccountId = Idacount;
+                var data = _context.RollNumberStudents.OrderByDescending(r => r.Alphabet).FirstOrDefault();
+                if (data != null)
+                {
+                    if (data.Number < 1000)
+                    {
+                        data.Number++;
+                        data.UpdatedAt = DateTime.Now;
+                        students.RollNumber = data.Alphabet + data.Number.ToString().PadLeft(4, '0');
+                        _context.Update(data);
+                    }
+                    else
+                    {
+                        var alphabet = data.Alphabet;
+                        var roll = new RollNumberStudents
+                                       {
+                                           Alphabet = alphabet,
+                                           Number = 1
+                                       };
+                        roll.Alphabet++;
+                        students.RollNumber = roll.Alphabet + roll.Number.ToString().PadLeft(4, '0');
+                        _context.Add(roll);
+                    }
+                }
+                else
+                {
+                    var roll = new RollNumberStudents
+                                   {
+                                       Alphabet = 'A',
+                                       Number = 1
+                                   };
+                    students.RollNumber = roll.Alphabet + roll.Number.ToString().PadLeft(4, '0');
+                    _context.Add(roll);
+                }
+                _context.Add(students);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(accounts);
         }
 
@@ -147,6 +201,32 @@ namespace ServerProject.Controllers
         private bool AccountsExists(int id)
         {
             return _context.Accounts.Any(e => e.Id == id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditMark(long id, [Bind("Id,Value")] Marks marks)
+        {
+            if (id != marks.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(marks);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                   
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            
+            return View(marks);
         }
     }
 }

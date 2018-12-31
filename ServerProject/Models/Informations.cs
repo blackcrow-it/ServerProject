@@ -19,6 +19,7 @@ namespace ServerProject.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public TypeGender Gender { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }

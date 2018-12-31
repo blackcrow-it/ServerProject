@@ -5,16 +5,21 @@ using System.Threading.Tasks;
 
 namespace ServerProject.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class StudentGrade
     {
         public StudentGrade()
         {
+            this.IsActive = true;
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
         }
         public string RollNumber { get; set; }
         public int GradeId { get; set; }
+        [DataType(DataType.Date)]
         public DateTime JoinAt { get; set; }
+        [DataType(DataType.Date)]
         public DateTime LeftAt { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }

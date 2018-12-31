@@ -15,7 +15,9 @@ namespace ServerProject.Models
         }
         public int GradeId { get; set; }
         public int CourseId { get; set; }
+        [DataType(DataType.Date)]
         public DateTime StartTime { get; set; }
+        [DataType(DataType.Date)]
         public DateTime EndTime { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }

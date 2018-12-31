@@ -9,10 +9,12 @@ namespace ServerProject.Models
 {
     public class ServerProjectContext : DbContext
     {
-        public ServerProjectContext (DbContextOptions<ServerProjectContext> options)
+        public ServerProjectContext(DbContextOptions<ServerProjectContext> options)
             : base(options)
         {
         }
+
+       
 
         public DbSet<ServerProject.Models.Accounts> Accounts { get; set; }
         public DbSet<ServerProject.Models.RollNumberStudents> RollNumberStudents { get; set; }
@@ -58,10 +60,10 @@ namespace ServerProject.Models
                 .WithMany(s => s.Markses)
                 .HasForeignKey(m => m.RollNumber);
             //Foreign Key TypeMark (Marks)
-            modelBuilder.Entity<Marks>()
-                .HasOne(m => m.Types)
-                .WithMany(t => t.Markses)
-                .HasForeignKey(m => m.TypeMark);
+            //modelBuilder.Entity<Marks>()
+            //    .HasOne(m => m.Types)
+            //    .WithMany(t => t.Markses)
+            //    .HasForeignKey(m => m.TypeMark);
             //Foreign Key CourseId (Marks)
             modelBuilder.Entity<Marks>()
                 .HasOne(m => m.Courses)
@@ -95,11 +97,11 @@ namespace ServerProject.Models
 
         public DbSet<ServerProject.Models.Grades> Grades { get; set; }
 
-        //public DbSet<ServerProject.Models.GradeCourse> GradeCourse { get; set; }
+        public DbSet<ServerProject.Models.GradeCourse> GradeCourse { get; set; }
 
-        //public DbSet<ServerProject.Models.Courses> Courses { get; set; }
+        public DbSet<ServerProject.Models.Courses> Courses { get; set; }
 
-        //public DbSet<ServerProject.Models.Marks> Marks { get; set; }
+        public DbSet<ServerProject.Models.Marks> Marks { get; set; }
 
         //public DbSet<ServerProject.Models.Types> Types { get; set; }
 

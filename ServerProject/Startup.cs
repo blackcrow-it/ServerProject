@@ -14,6 +14,10 @@ using ServerProject.Models;
 
 namespace ServerProject
 {
+    using Microsoft.AspNetCore.Authentication.Cookies;
+
+    using ServerProject.Middleware;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -32,7 +36,11 @@ namespace ServerProject
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddSession(options =>
+                {
 
+                    options.Cookie.HttpOnly = true;
+                });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -56,7 +64,12 @@ namespace ServerProject
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession();
+            //app.UseWhen(context => context.Request.Path.StartsWithSegments("/accounts"), HandleMapCheckToken);
+            //app.UseWhen(context => context.Request.Path.StartsWithSegments("/Grades"), HandleMapCheckToken);
+            //app.UseWhen(context => context.Request.Path.StartsWithSegments("/Marks"), HandleMapCheckToken);
+            //app.UseWhen(context => context.Request.Path.StartsWithSegments("/Courses"), HandleMapCheckToken);
+            //app.UseWhen(context => context.Request.Path.StartsWithSegments("/Students"), HandleMapCheckToken);
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -64,5 +77,9 @@ namespace ServerProject
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+        //private static void HandleMapCheckToken(IApplicationBuilder app)
+        //{
+        //    app.UseAuthenticationMiddleware();
+        //}
     }
 }

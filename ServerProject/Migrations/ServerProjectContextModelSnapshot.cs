@@ -31,6 +31,8 @@ namespace ServerProject.Migrations
 
                     b.Property<int>("Role");
 
+                    b.Property<string>("Salt");
+
                     b.Property<DateTime>("UpdatedAt");
 
                     b.Property<string>("UserName");
@@ -150,19 +152,19 @@ namespace ServerProject.Migrations
 
                     b.Property<int>("Status");
 
+                    b.Property<int>("Type");
+
                     b.Property<int>("TypeMark");
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<float>("Value");
+                    b.Property<int>("Value");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
                     b.HasIndex("RollNumber");
-
-                    b.HasIndex("TypeMark");
 
                     b.ToTable("Marks");
                 });
@@ -230,25 +232,6 @@ namespace ServerProject.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("ServerProject.Models.Types", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<float>("MaxValue");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime>("UpdatedAt");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Types");
-                });
-
             modelBuilder.Entity("ServerProject.Models.GradeCourse", b =>
                 {
                     b.HasOne("ServerProject.Models.Courses", "Courses")
@@ -280,11 +263,6 @@ namespace ServerProject.Migrations
                     b.HasOne("ServerProject.Models.Students", "Students")
                         .WithMany("Markses")
                         .HasForeignKey("RollNumber");
-
-                    b.HasOne("ServerProject.Models.Types", "Types")
-                        .WithMany("Markses")
-                        .HasForeignKey("TypeMark")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ServerProject.Models.StudentGrade", b =>

@@ -1,0 +1,320 @@
+﻿@model ServerProject.Models.Grades
+
+@{
+    ViewData["Title"] = "Details";
+    List<GradeCourse> list = ViewBag.Funds as List<GradeCourse>;
+    List<StudentGrade> listSt = ViewBag.Stus as List<StudentGrade>;
+    
+    List<Marks> listmk = ViewBag.MK as List<Marks>;
+}
+<style>
+    #edit_bth {
+        margin-right: 1%;
+    }
+</style>
+<h2>@Model.Name</h2>
+
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+<div>
+    <h4>Grades</h4>
+    <hr />
+    <div class="col-lg-12">
+        <div class="col-lg-4">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StartTime)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndTime)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IsActive)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedAt)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedAt)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.UpdatedAt)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UpdatedAt)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-lg-8">
+        
+        </div>
+    </div>
+</div>
+<div id="main">
+    <div class="container">
+       
+        <div class="group-tabs">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">transcript</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Courses</a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Students</a></li>
+               
+            </ul>
+            <!---------------------------------------------------------------------------------------------------- Tab panes-------------------------------------------------------------------------------------------------------- -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <table class="table table-striped ">
+                        <thead>
+                            <form asp-action="Details">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6 pull-left">
+                                         chọn môn muốn xem điểm: 
+                                        <select class="form-control pull-right " style="width: 200px" name="changeId" asp-items="ViewBag.CourseId"></select>
+                                    </div>
+                                    <input class="pull-leftt btn btn-primary" type="submit" value="Chose"/>
+                                </div>
+                            </form>
+                            <tr>
+                                <th>Name</th>
+                                <th></th>
+                                <th>Mark</th>
+                                <th></th>
+                               <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in listSt)
+                            {
+                                <tr>
+                                    <td>@i.Students.Accounts.UserName</td>
+                                        @foreach (var m in listmk.Where(c => c.RollNumber == i.RollNumber))
+                                    {
+                                        <td>
+                                            <p>@m.Type:</p>
+                                            <p>@m.Value</p>
+                                            <p>@m.Status</p>
+                                        </td>
+                                    }
+                                    <td>
+                                        <button class="btn btn-primary" id="edit_bth">Edit</button>   
+                                    </td>
+                                </tr>
+                             }
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile">
+                    <table class="table table-striped ">
+                        <thead>
+                        <a asp-action="CreateGC" asp-route-id="@Model.Id">Add</a>
+                            <tr>
+                                <th>Name</th>
+                                <th>Start time</th>
+                                <th>End time</th>
+                                <th >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in list)
+                            {
+                                <tr>
+                                    <td>@i.Courses.Name</td>
+                                    <td>@i.StartTime</td>
+                                    <td>@i.EndTime</td>
+                                    <td><input type="button" value="Delete" class="bthDeletec btn btn-danger" id="@i.CourseId" name="@i.GradeId" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="messages">
+                    <table class="table table-striped ">
+                        <thead>
+                            <a asp-action="AddStudent" asp-route-id="@Model.Id">Add</a>
+                            <tr>
+                                <th>Username</th>
+                                <th>RollNumber</th>
+                                <th>JoinAt</th>
+
+                                <th >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in listSt)
+                            {
+                            <tr>
+                                    <td>@i.Students.Accounts.UserName</td>
+                                    <td>@i.RollNumber</td>
+                                    <td>@i.JoinAt</td>
+                                <td><a asp-action="DetailsInfor" class="btn btn-info" asp-route-id="@i.Students.Accounts.Id"> Detail</a>
+                                    <input type="button" value="Delete" class="bthDelete btn btn-danger" id="@i.RollNumber" name="@i.GradeId" />
+                                    </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+               </div>
+        </div>
+    </div>
+</div>
+<!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<div class="modal fade " id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <select id="choseType" style="width: 120px" class="form-control">
+                    <option value="1">THEORY</option>
+                    <option value="2">PRATICE</option>
+                    <option value="3">ASSIGNMENT</option>
+                </select>
+                <select class="form-control pull-right " style="width: 100px" id="choseCo" asp-items="ViewBag.CourseId"></select>
+            </div>
+            <div class="modal-body col-lg-12" >
+                
+                
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th></th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var i in listSt)
+                        {
+                            <tr>
+                                <form asp-action="CreateListMark">
+                                    <td>@i.Students.Accounts.UserName </td>
+                                    <td></td>
+                                    <td>
+                                        <input type="hidden" name="RollNumber" class="roll" value="@i.RollNumber" />
+                                        <input type="text" class="roll" name="Value" />
+                                        <input type="hidden" class="changeType roll" name="Type" />
+                                        <input type="hidden" class="coursechange roll" name="CourseId" />
+                                    </td>
+                                    <td><input type="submit" class="addaray"/></td>
+                                </form>
+                            </tr>
+                        
+                        }
+                        
+                        </tbody>
+                    </table>
+                   
+                
+            </div>
+            <div class="modal-footer">
+                <button class="qa">asdasdas</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      
+    </div>
+</div>
+<div>
+ <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->    |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(Document).ready(function () {
+        $(".bthDelete").click(function () {
+            var currentBtn = $(this);
+            if (confirm("do you want to delete Student")) {
+                $.ajax({
+                    url: "/Grades/DelSt?RollNumber=" + currentBtn.attr("id") + "&GradeId=" + currentBtn.attr("name"),
+                    type: "POST",
+                    success: function () {
+                       alert("1");
+                        currentBtn.closest('tr').remove();
+                    },
+                    error: function () {
+                        alert("2");
+                        $(".alert-error").text("delete fail");
+                    }
+                });
+            }
+        });
+    })
+    $('.qa').click(function () {
+        $('.addaray').click();
+
+    });
+    //$(Document).ready(function () {
+    //    $('.addaray').click(function () {
+            
+           
+    //        var currentBtn = $(this);
+
+    //            $.ajax({
+    //                url: "/Grades/CreateListMark" ,
+    //                type: "POST",
+    //                data: $('form').serialize(),
+    //                success: function () {
+                        
+
+    //                },
+    //                error: function () {
+    //                    alert("2");
+
+    //                }
+    //            });
+
+    //    });
+    //})
+    $(Document).ready(function () {
+        $(".bthDeletec").click(function () {
+            var currentBtn = $(this);
+            if (confirm("do you want to delete Course")) {
+                $.ajax({
+                    url: "/Grades/DelC?CourseId=" + currentBtn.attr("id") + "&GradeId=" + currentBtn.attr("name"),
+                    type: "POST",
+                    success: function () {
+                        alert("Thành công");
+                        currentBtn.closest('tr').remove();
+                    },
+                    error: function () {
+                        alert("lỗi");
+
+                    }
+                });
+            }
+        });
+    })
+    $(Document).ready(function () {
+        $("#choseCo").focusout(function () {
+            var co = $('#choseCo').val();
+            $('.coursechange').val(co);
+        });
+    })
+    $(Document).ready(function () {
+        $("#choseType").focusout(function () {
+            var co = $('#choseType').val();
+            $('.changeType').val(co);
+        });
+    })
+</script>

@@ -15,13 +15,6 @@ namespace ServerProject.Models
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
         }
-
-        public Students(string Uid)
-        {
-            this.RollNumber = Uid;
-            this.CreatedAt = DateTime.Now;
-            this.UpdatedAt = DateTime.Now;
-        }
         public string RollNumber { get; set; }
         public int AccountId { get; set; }
         public DateTime CreatedAt { get; set; }
