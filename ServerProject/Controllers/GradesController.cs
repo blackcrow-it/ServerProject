@@ -21,7 +21,7 @@ namespace ServerProject.Controllers
         // GET: Grades
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Grades.ToListAsync());
+            return View(await _context.Grades.Include(m=>m.GradeCourses).Include(s=>s.StudentGrades).ToListAsync());
         }
 
         // GET: Grades/Details/5

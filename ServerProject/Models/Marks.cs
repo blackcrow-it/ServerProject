@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace ServerProject.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Marks
     {
         public static int MAX_THEORY = 10;
@@ -48,11 +50,14 @@ namespace ServerProject.Models
             this.Status = (this.Value / maximum) * 100 >= 40 ? MarkStatus.PASS : MarkStatus.FAIL;
         }
         public long Id { get; set; }
+        [Display(Name = "Loại điểm")]
         public MarkType Type { get; set; }
+        [Display(Name = "điểm")]
         public int Value { get; set; }
-       
+        
         public string RollNumber { get; set; }
         public int TypeMark { get; set; }
+        [Display(Name = "ID môn học")]
         public int CourseId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

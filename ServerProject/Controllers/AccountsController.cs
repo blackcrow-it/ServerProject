@@ -68,13 +68,17 @@ namespace ServerProject.Controllers
             if (ModelState.IsValid)
             {
                 var exisEmail = this._context.Accounts.SingleOrDefault(a => a.UserName == accounts.UserName);
+                var exisEmail2 = this._context.Informations.SingleOrDefault(a => a.Email == accounts.Informations.Email);
+                if (exisEmail2 != null)
+                {
+                    TempData["fail2"] = "Email đã được sử dụng";
+                    return RedirectToAction(nameof(Create));
+                }
                 if (exisEmail != null)
                 {
                     TempData["fail"] = "Username đã được sử dụng";
                     return RedirectToAction(nameof(Create));
                 }
-                var exisEmailif = this._context.Informations.SingleOrDefault(a => a.Email == accounts.Informations.Email);
-               
                 var students = new Students();
                 accounts.Salt = Handlepassword.GetInstance().GenerateSalt();
                 accounts.Password = Handlepassword.GetInstance()

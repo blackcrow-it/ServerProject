@@ -52,6 +52,7 @@ namespace ServerProject.Middleware
             {
                 context.Response.StatusCode = 403;
                 await context.Response.WriteAsync("Forbidden");
+                
 
             }
         }

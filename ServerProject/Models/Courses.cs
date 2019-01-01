@@ -16,8 +16,9 @@ namespace ServerProject.Models
         }
         public int Id { get; set; }
         [Required(ErrorMessage = "Tên môn không được để trống")]
+        [Display(Name = "Tên môn")]
         public string Name { get; set; }
-
+        [Display(Name = "Mô tả")]
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

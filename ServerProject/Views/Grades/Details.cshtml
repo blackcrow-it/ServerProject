@@ -14,11 +14,11 @@
 </style>
 <h2>@Model.Name</h2>
 
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add</button>
 <div>
     <table class="table table-striped custab">
         <thead>
-        <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a>
+       
         <tr>
             <th>@Html.DisplayNameFor(model => model.Name)</th>
             <th> @Html.DisplayNameFor(model => model.StartTime)</th>
@@ -61,10 +61,11 @@
                         <thead>
                         <form asp-action="Details">
                             <div class="col-lg-12" style="margin-top: 1%">
-                                <div class="col-lg-6 pull-left">
-                                    <h5 class="pull-left" style="margin-left: -6%">chọn môn muốn xem điểm:</h5>
-                                    <select class="form-control pull-left " style="width: 100px" name="changeId" asp-items="ViewBag.CourseId"></select>
-                                    <input class="pull-left btn btn-danger" type="submit" value="Chose" />
+                                <div class="col-lg-6 pull-right">
+                                    <input class="pull-right btn btn-danger" id="ChangeIdc" type="submit" value="Chose" />
+                                    <select class="form-control pull-right " style="width: 100px" name="changeId" asp-items="ViewBag.CourseId"></select>
+                                    
+                                    <h5 class="pull-right" >chọn môn muốn xem điểm:</h5>
                                 </div>
                             </div>
                         </form>
@@ -77,7 +78,7 @@
                                <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="disableTable">
                             @foreach (var i in listSt)
                             {
                                 <tr>
@@ -101,7 +102,7 @@
                 <div role="tabpanel" class="tab-pane" id="profile">
                     <table class="table table-striped ">
                         <thead>
-                        <a asp-action="CreateGC"  class="btn btn-info pull-right" asp-route-id="@Model.Id">Add</a>
+                        <a asp-action="CreateGC"  class="btn btn-info pull-right" asp-route-id="@Model.Id">Thêm môn học</a>
                             <tr>
                                 <th>Name</th>
                                 <th>Start time</th>
@@ -126,7 +127,7 @@
                 <div role="tabpanel" class="tab-pane" id="messages">
                     <table class="table table-striped ">
                         <thead>
-                            <a asp-action="AddStudent" class="btn btn-info pull-right" asp-route-id="@Model.Id">Add</a>
+                            <a asp-action="AddStudent" class="btn btn-info pull-right" asp-route-id="@Model.Id">Thêm học sinh</a>
                             <tr>
                                 <th>Username</th>
                                 <th>RollNumber</th>

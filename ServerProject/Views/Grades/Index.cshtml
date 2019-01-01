@@ -25,10 +25,10 @@
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
+              Số học sinh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
+               Số môn học
             </th>
             <th></th>
         </tr>
@@ -49,10 +49,10 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
+               @item.StudentGrades.Count
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UpdatedAt)
+               @item.GradeCourses.Count
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

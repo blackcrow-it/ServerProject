@@ -36,7 +36,7 @@ namespace ServerProject.Models
         [Display(Name = "Địa chỉ")]
         public string Address { get; set; }
         [Required(ErrorMessage = "số điện thoại không được để trống")]
-        [Display(Name = "Số ddienj thoại")]
+        [Display(Name = "Số điện thoại")]
         public string Phone { get; set; }
         [Display(Name = "ảnh đại diện")]
         public string Avatar { get; set; }

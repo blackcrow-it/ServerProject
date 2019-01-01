@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Students.RollNumber)
             </th>
             <th>
-                Full name
+                Họ và tên
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Informations.Email)
@@ -54,7 +54,7 @@
                 @Html.DisplayFor(modelItem => item.Informations.Address)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+               
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
