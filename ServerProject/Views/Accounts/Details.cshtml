@@ -6,7 +6,7 @@
     List<Marks> listmk = ViewBag.MK as List<Marks>;
 }
 
-<h2>Details</h2>
+<h2>@Model.UserName</h2>
 <style>
     img.img-circle {
         width: 200px;
@@ -17,11 +17,12 @@
 
 <div class="row">
     <div class="col-md-12 ">
-        <button asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info pull-right" value="Edit Profile">Edit information</button>
+        
+        <a asp-action="EditInfor" class="btn btn-info pull-right" asp-route-id="@Model.Informations.AccountId">Edit information</a>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" >
         <img src="@Model.Informations.Avatar" width="200px" class="center-block img-circle" />
         <dl class="dl-horizontal">
             <dt>
@@ -56,7 +57,15 @@
             <dd>
                 @foreach (var i in listSt.Where(s=>s.RollNumber == Model.Students.RollNumber))
                 {
-                    <a asp-action="../Grades/Details" asp-route-id="@i.GradeId" >@i.Grades.Name</a>
+                    if (i.RollNumber == null)
+                     {
+                            <h4>Null</h4>
+                     }
+                     else
+                     {
+                         <a asp-action="../Grades/Details" asp-route-id="@i.GradeId" >@i.Grades.Name</a>
+                     }
+                   
                 }
             </dd>
         </dl>
@@ -68,10 +77,10 @@
             <thead>
             <tr>
                 @*<th></th>*@
-                <th></th>
-                <th></th>
-                <th>Mark</th>
-                <th></th>
+                <th>tên môn</th>
+                <th>loại điểm</th>
+                <th>điểm</th>
+                <th>Trạng thái</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -82,13 +91,14 @@
                 <tr>
                     <td style="display: none">@ma.CourseId</td>
                     <td style="display: none">@ma.Id</td>
+                    <td style="display: none">@ma.RollNumber</td>
                     <th>@ma.Courses.Name</th>
-                    <td>
-                        @ma.Type :
-                        @ma.Value
-                        @ma.Status
-                    </td>
-                    
+
+                    <td> @ma.Type </td>
+                    <td>   @ma.Value</td>
+                    <td>    @ma.Status</td>
+
+
                     <td>
                         <button type="button" class="btn btn-primary bthEdit" id="bth_editMark" data-toggle="modal" data-target="#exampleModal">
                             Edit
@@ -110,9 +120,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" asp-action="EditMark">
-                    <input type="hidden" id="Id"   />
-                    
+                <form method="post" >
+                    <input type="hidden" name="Id" id="Id"/>
+                    <input type="text"name="CourseId" id="cId"/>
+                    <input type="text"name="RollNumber" id="rollN"/>
                     
                    
                     Value: <input type="number" class="form-control" id="Assignment" name="Value">

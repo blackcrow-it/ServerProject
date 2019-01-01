@@ -3,40 +3,63 @@
 @{
     ViewData["Title"] = "Create";
 }
-
+<style>
+    img.img-circle {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #51D2B7;
+    }
+</style>
 <h2>Create</h2>
 
 <h4>Accounts</h4>
 <hr />
 <div class="row">
+    <div class="col-sm-12"><!--left col-->
+       
+
+        <div class="text-center">
+            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" id="imgs" alt="avatar">
+        </div><br>
+    </div>
     <form asp-action="Create">
-        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="col-lg-12 ">
+            
+            <h5 class="text-danger">@TempData["fail"]</h5>
+           
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        
         <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
+                <input asp-for="UserName" class="form-control"/>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <label asp-for="Password"  class="control-label"></label>
+                <input asp-for="Password" type="password" class="form-control"/>
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
+                <input asp-for="ConfirmPassword" type="password" class="form-control"/>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
+                <label asp-for="Informations.Avatar" class="control-label"></label>
+                <input asp-for="Informations.Avatar" id="ava" class="form-control"/>
+            </div>
+            <div class="form-group">
                 <label asp-for="Informations.FirstName" class="control-label"></label>
-                <input asp-for="Informations.FirstName" class="form-control" />
+                <input asp-for="Informations.FirstName" class="form-control"/>
             </div>
             <div class="form-group">
                 <label asp-for="Informations.MiddleName" class="control-label"></label>
-                <input asp-for="Informations.MiddleName" class="form-control" />
+                <input asp-for="Informations.MiddleName" class="form-control"/>
             </div>
             <div class="form-group">
                 <label asp-for="Informations.LastName" class="control-label"></label>
-                <input asp-for="Informations.LastName" class="form-control" />
+                <input asp-for="Informations.LastName" class="form-control"/>
             </div>
             <div class="form-group">
                 <label asp-for="Informations.Gender" class="control-label"></label>
@@ -48,27 +71,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="Informations.Birthday" class="control-label"></label>
-                <input asp-for="Informations.Birthday" class="form-control" />
+                <input asp-for="Informations.Birthday" class="form-control"/>
             </div>
             <div class="form-group">
                 <label asp-for="Informations.Email" class="control-label"></label>
-                <input asp-for="Informations.Email" class="form-control" />
+                <input asp-for="Informations.Email" class="form-control"/>
             </div>
             <div class="form-group">
                 <label asp-for="Informations.Address" class="control-label"></label>
-                <input asp-for="Informations.Address" class="form-control" />
+                <input asp-for="Informations.Address" class="form-control"/>
             </div>
             <div class="form-group">
                 <label asp-for="Informations.Phone" class="control-label"></label>
-                <input asp-for="Informations.Phone" class="form-control" />
+                <input asp-for="Informations.Phone" class="form-control"/>
             </div>
-            <div class="form-group">
-                <label asp-for="Informations.Avatar" class="control-label"></label>
-                <input asp-for="Informations.Avatar" class="form-control" />
-            </div>
+
         </div>
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-default" />
+        <div class="form-group col-lg-10 ">
+            <input type="reset" value="Reset"  class="btn btn-danger pull-right"/>
+            <input type="submit" value="Create" id="avachange" class="btn btn-danger pull-right"/>
         </div>
     </form>
 </div>

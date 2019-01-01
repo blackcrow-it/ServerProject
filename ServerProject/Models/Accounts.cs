@@ -17,6 +17,7 @@ namespace ServerProject.Models
             this.Role = 0;
         }
         public int Id { get; set; }
+        [Required(ErrorMessage = "Password không được để trống")]
         public string UserName { get; set; }
         public string Password { get; set; }
         [NotMapped]

@@ -4,13 +4,14 @@
 // Write your JavaScript code.
 $(Document).ready(function () {
     $('.bthEdit').click(function () {
-       
+        var cId = $(this).parent().parent().find('td:eq(0)').text();
         var Id = $(this).parent().parent().find('td:eq(1)').text();
-        
+        var roll = $(this).parent().parent().find('td:eq(2)').text();
         
         $("#Id").val(Id);
-       
-
+        $("#rollN").val(roll);
+        $("#cId").val(cId);
+        
     });
 })
 
@@ -20,7 +21,7 @@ $(document).ready(function () {
 
 
             $.ajax({
-                url: "/Marks/EditMark?id=" + $('#Id').val(),
+                url: "/Accounts/EditMark?id=" + $('#Id').val(),
                 type: 'POST',
 
                 data: $('form').serialize(),
@@ -35,4 +36,17 @@ $(document).ready(function () {
             });
         }
     });
+})
+$(document).ready(function () {
+    $("#ava").change(function () {
+        var img = $('#ava').val();
+        $('#imgs').attr('src', img);
+    });
+})
+$(document).ready(function () {
+    $('#avachange').click(function() {
+      if ($('#ava').val()=="") {
+    $('#ava').val("http://ssl.gstatic.com/accounts/ui/avatar_2x.png");
+    }
+    })
 })

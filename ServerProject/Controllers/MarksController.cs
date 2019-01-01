@@ -101,7 +101,7 @@ namespace ServerProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Type,Value,RollNumber,TypeMark,CourseId,CreatedAt,UpdatedAt,Status")] Marks marks)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Type,Value,RollNumber,CourseId")] Marks marks)
         {
             if (id != marks.Id)
             {

@@ -58,8 +58,6 @@ namespace ServerProject.Controllers
         {
             return View();
         }
-        
-       
         // POST: Accounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -69,6 +67,14 @@ namespace ServerProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                var exisEmail = this._context.Accounts.SingleOrDefault(a => a.UserName == accounts.UserName);
+                if (exisEmail != null)
+                {
+                    TempData["fail"] = "Username đã được sử dụng";
+                    return RedirectToAction(nameof(Create));
+                }
+                var exisEmailif = this._context.Informations.SingleOrDefault(a => a.Email == accounts.Informations.Email);
+               
                 var students = new Students();
                 accounts.Salt = Handlepassword.GetInstance().GenerateSalt();
                 accounts.Password = Handlepassword.GetInstance()
@@ -205,7 +211,7 @@ namespace ServerProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditMark(long id, [Bind("Id,Value")] Marks marks)
+        public async Task<IActionResult> EditMark(long id, [Bind("Id,Value,CourseId,RollNumber")] Marks marks)
         {
             if (id != marks.Id)
             {
@@ -214,19 +220,65 @@ namespace ServerProject.Controllers
 
             if (ModelState.IsValid)
             {
+                if (marks.Value > 5)
+                {
+                    marks.Status = MarkStatus.PASS;
+                }
+                else
+                {
+                    marks.Status = MarkStatus.FAIL;
+                }
+
+                _context.Update(marks);
+                    await _context.SaveChangesAsync();
+              return RedirectToAction(nameof(Index));
+            }
+            
+            return View(marks);
+        }
+        public async Task<IActionResult> EditInfor(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var informations = await _context.Informations.FindAsync(id);
+            if (informations == null)
+            {
+                return NotFound();
+            }
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id", informations.AccountId);
+            return View(informations);
+        }
+
+        // POST: Informationsmvc/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditInfor(int id, [Bind("AccountId,FirstName,MiddleName,LastName,Gender,Birthday,Email,Address,Phone,Avatar")] Informations informations)
+        {
+            if (id != informations.AccountId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
                 try
                 {
-                    _context.Update(marks);
+                    _context.Update(informations);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                   
+                  
                 }
                 return RedirectToAction(nameof(Index));
             }
-            
-            return View(marks);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id", informations.AccountId);
+            return View(informations);
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace ServerProject.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Courses
     {
         public Courses()
@@ -13,7 +15,9 @@ namespace ServerProject.Models
             this.UpdatedAt = DateTime.Now;
         }
         public int Id { get; set; }
+        [Required(ErrorMessage = "Tên môn không được để trống")]
         public string Name { get; set; }
+
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
