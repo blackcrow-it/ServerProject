@@ -83,7 +83,7 @@ namespace ServerProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,StartTime,EndTime,IsActive,CreatedAt,UpdatedAt")] Grades grades)
+        public async Task<IActionResult> Create([Bind("Id,Name,StartTime,EndTime,IsActive")] Grades grades)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +115,7 @@ namespace ServerProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,StartTime,EndTime,IsActive,CreatedAt,UpdatedAt")] Grades grades)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,StartTime,EndTime,IsActive")] Grades grades)
         {
             if (id != grades.Id)
             {
@@ -146,33 +146,7 @@ namespace ServerProject.Controllers
         }
 
         // GET: Grades/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var grades = await _context.Grades
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (grades == null)
-            {
-                return NotFound();
-            }
-
-            return View(grades);
-        }
-
-        // POST: Grades/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var grades = await _context.Grades.FindAsync(id);
-            _context.Grades.Remove(grades);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+       
 
         private bool GradesExists(int id)
         {

@@ -1,4 +1,5 @@
-﻿@model ServerProject.Models.Grades
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model ServerProject.Models.Grades
 
 @{
     ViewData["Title"] = "Details";
@@ -88,7 +89,15 @@
                                         <td>
                                             <p>@m.Type:</p>
                                             <p>@m.Value</p>
-                                            <p>@m.Status</p>
+                                            @if (@m.Status == MarkStatus.PASS)
+                                            {
+                                                <label class="label label-success">@m.Status</label>
+                                            }
+                                            else
+                                            {
+                                                <label class="label label-danger">@m.Status</label>
+                                            }
+                                            
                                         </td>
                                     }
                                     <td>
@@ -182,10 +191,11 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <form asp-action="CreateListMark">
                         @foreach (var i in listSt)
                         {
                             <tr>
-                                <form asp-action="CreateListMark">
+                               
                                     <td>@i.Students.Accounts.UserName </td>
                                     <td></td>
                                     <td>
@@ -194,12 +204,12 @@
                                         <input type="hidden" class="changeType roll" name="Type" />
                                         <input type="hidden" class="coursechange roll" name="CourseId" />
                                     </td>
-                                    <td><input type="submit" class="addaray"/></td>
-                                </form>
+                                    
+                               
                             </tr>
                         
                         }
-                        
+                        </form>
                         </tbody>
                     </table>
                    
@@ -241,10 +251,9 @@
             }
         });
     })
-    $('.qa').click(function () {
-        $('.addaray').click();
+  
 
-    });
+    
     //$(Document).ready(function () {
     //    $('.addaray').click(function () {
             
@@ -298,4 +307,5 @@
             $('.changeType').val(co);
         });
     })
+    s
 </script>
