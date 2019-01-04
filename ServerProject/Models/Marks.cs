@@ -11,13 +11,13 @@ namespace ServerProject.Models
     {
         public static int MAX_THEORY = 10;
         public static int MAX_PRATICE = 15;
-        private static int MAX_ASSIGNMENT = 10;
+        public static int MAX_ASSIGNMENT = 10;
 
         public Marks()
         {
             this.Value = 0;
             this.Type = MarkType.THEORY;
-            this.calculateMarkStatus();
+            this.CalculateMarkStatus();
             this.CreatedAt = DateTime.Now;
             this.CreatedAt = DateTime.Now;
         }
@@ -27,34 +27,33 @@ namespace ServerProject.Models
            
             this.Value = value;
             this.Type = type;
-            this.calculateMarkStatus();
+            this.CalculateMarkStatus();
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
         }
 
-        public void calculateMarkStatus()
+        public void CalculateMarkStatus()
         {
             int maximum = 0;
             if (this.Type == MarkType.THEORY)
             {
-                maximum = MAX_THEORY;
+                maximum = 10;
             }
             else if (this.Type == MarkType.PRATICE)
             {
-                maximum = MAX_PRATICE;
+                maximum = 15;;
             }
             else if (this.Type == MarkType.ASSIGNMENT)
             {
-                maximum = MAX_ASSIGNMENT;
+                maximum = 10;
             }
-            this.Status = (this.Value / maximum) * 100 >= 40 ? MarkStatus.PASS : MarkStatus.FAIL;
+            this.Status = this.Value >= (40 * maximum / 100) ? MarkStatus.PASS : MarkStatus.FAIL;
         }
         public long Id { get; set; }
         [Display(Name = "Loại điểm")]
         public MarkType Type { get; set; }
         [Display(Name = "điểm")]
         public int Value { get; set; }
-        
         public string RollNumber { get; set; }
         public int TypeMark { get; set; }
         [Display(Name = "ID môn học")]

@@ -9,6 +9,11 @@ using ServerProject.Models;
 
 namespace ServerProject.Controllers
 {
+    using System.IO;
+    using System.Text;
+
+    using Newtonsoft.Json;
+
     public class GradesController : Controller
     {
         private readonly ServerProjectContext _context;
@@ -37,7 +42,7 @@ namespace ServerProject.Controllers
             List<GradeCourse> fundList = _context.GradeCourse.Where(i => i.GradeId == id).Include(m=>m.Courses).ToList();
             ViewBag.Funds = fundList;
 
-            List<StudentGrade> stusList = _context.StudentGrade.Where(s=>s.GradeId == id).Include(st=>st.Students).ThenInclude(a=>a.Accounts).ToList();
+            List<StudentGrade> stusList = _context.StudentGrade.Where(s=>s.GradeId == id).Include(st=>st.Students).ThenInclude(a=>a.Accounts).ThenInclude(i=>i.Informations).ToList();
             ViewBag.Stus = stusList;
             
             List<Marks> Mk = _context.Marks.Where(m=>m.CourseId == changeId).Include(c=>c.Courses).ToList();
@@ -301,26 +306,34 @@ namespace ServerProject.Controllers
             ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id", informations.AccountId);
             return View(informations);
         }
-      
-        public async Task<IActionResult> CreateListMark([Bind("Id,Type,Value,RollNumber,TypeMark,CourseId")] Marks marks)
+        [HttpPost]
+        public async Task<IActionResult> CreateListMark()
         {
+            //var a = await Request.Body.ReadAsync();
+            //return Json(marks.ToString());
+            StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8);
+            string datastring = await reader.ReadToEndAsync();
+            List<Marks> marks = JsonConvert.DeserializeObject<List<Marks>>(datastring);
+
             if (ModelState.IsValid)
             {
-                if (marks.Value > 5)
-                {
-                    marks.Status = MarkStatus.PASS;
-                }
-                else
-                {
-                    marks.Status = MarkStatus.FAIL;
-                }
-                
-                _context.Add(marks);
-                await _context.SaveChangesAsync();
                
+                foreach (var item in marks)
+                {
+                    var checkmark = _context.Marks.Where(a => a.RollNumber == item.RollNumber).Where(s => s.Type == item.Type)
+                        .Where(d => d.CourseId == item.CourseId).FirstOrDefault();
+                    item.CalculateMarkStatus();
+                    if (checkmark == null)
+                    {
+                        _context.Add(item);
+                    }
+                    else
+                    {
+                    }
+                }
+                await _context.SaveChangesAsync();
                 return Json("hello");
             }
-            
             return this.Ok();
         }
     }
