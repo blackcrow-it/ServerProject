@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServerProject.Models
 {
+    using Newtonsoft.Json;
     using System.ComponentModel.DataAnnotations;
 
     public class Accounts
@@ -23,7 +24,6 @@ namespace ServerProject.Models
         [NotMapped]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
-
         public string Salt { get; set; }
         public int Role { get; set; }
         public DateTime CreatedAt { get; set; }
