@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Thêm lớp</a>
 </p>
 <table class="table">
     <thead>
@@ -46,7 +46,14 @@
                 @Html.DisplayFor(modelItem => item.EndTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
+                @if (item.IsActive == true)
+                {
+                    <label class="label label-success">Đang hoạt động</label>
+                }
+                else
+                {
+                    <label class="label label-default">Không hoạt động</label>
+                }
             </td>
             <td>
                @item.StudentGrades.Count
@@ -55,8 +62,8 @@
                @item.GradeCourses.Count
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Sửa</a> |
+                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a> 
                 
             </td>
         </tr>

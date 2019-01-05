@@ -29,7 +29,7 @@ namespace ServerProject.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Accounts.Include(m=>m.Informations).Include(s=>s.Students).ToListAsync());
+            return View(await _context.Accounts.Include(m=>m.Informations).Include(s=>s.Students).Where(t=>t.Role != 1).ToListAsync());
         }
 
         // GET: Accounts/Details/5
@@ -128,56 +128,56 @@ namespace ServerProject.Controllers
             return View(accounts);
         }
 
-        // GET: Accounts/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Accounts/Edit/5
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var accounts = await _context.Accounts.FindAsync(id);
-            if (accounts == null)
-            {
-                return NotFound();
-            }
-            return View(accounts);
-        }
+        //    var accounts = await _context.Accounts.FindAsync(id);
+        //    if (accounts == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(accounts);
+        //}
 
-        // POST: Accounts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Password,Role,CreatedAt,UpdatedAt")] Accounts accounts)
-        {
-            if (id != accounts.Id)
-            {
-                return NotFound();
-            }
+        //// POST: Accounts/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Password,Role,CreatedAt,UpdatedAt")] Accounts accounts)
+        //{
+        //    if (id != accounts.Id)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(accounts);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AccountsExists(accounts.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(accounts);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(accounts);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!AccountsExists(accounts.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(accounts);
+        //}
 
         // GET: Accounts/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -224,14 +224,7 @@ namespace ServerProject.Controllers
 
             if (ModelState.IsValid)
             {
-                if (marks.Value > 5)
-                {
-                    marks.Status = MarkStatus.PASS;
-                }
-                else
-                {
-                    marks.Status = MarkStatus.FAIL;
-                }
+               marks.CalculateMarkStatus();
 
                 _context.Update(marks);
                     await _context.SaveChangesAsync();
@@ -246,7 +239,7 @@ namespace ServerProject.Controllers
             {
                 return NotFound();
             }
-
+           
             var informations = await _context.Informations.FindAsync(id);
             if (informations == null)
             {
@@ -270,6 +263,12 @@ namespace ServerProject.Controllers
 
             if (ModelState.IsValid)
             {
+                var exisEmail2 = this._context.Informations.SingleOrDefault(a => a.Email == informations.Email);
+                if (exisEmail2 != null)
+                {
+                    TempData["fail2"] = "Email đã được sử dụng";
+                    return RedirectToAction(nameof(EditInfor));
+                }
                 try
                 {
                     _context.Update(informations);

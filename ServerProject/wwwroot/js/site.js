@@ -26,12 +26,13 @@ $(document).ready(function () {
 
                 data: $('form').serialize(),
 
-                success: function (data) {
-                    alert("Update success");
-                    location.reload();
+                success: function (message) {
+                   
+                    $.notify("Sửa điểm thành công", "success");
+                    setTimeout(location.reload.bind(location), 500);
                 },
-                error: function (data) {
-                    alert("Update fail");
+                error: function (message) {
+                    $.notify("Sửa điểm thất bại", "error");
                 }
             });
         }

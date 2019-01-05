@@ -20,9 +20,11 @@ namespace ServerProject.Models
         [Display(Name = "Tên lớp")]
         public string Name { get; set; }
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Ngày bắt đầu không được để trống")]
         [Display(Name = "Ngày bắt đầu")]
         public DateTime StartTime { get; set; }
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Ngày kết thúc không được để trống")]
         [Display(Name = "Ngày kết thúc")]
         public DateTime EndTime { get; set; }
         [Display(Name = "Trạng thái")]

@@ -31,14 +31,17 @@ namespace ServerProject.Models
         [Display(Name = "Sinh nhật")]
         public DateTime Birthday { get; set; }
         [Required(ErrorMessage = "Email không được để trống")]
+        [EmailAddress(ErrorMessage = "Vui lòng nhập đúng định dạng")]
         public string Email { get; set; }
         [Required(ErrorMessage = "địa chỉ không được để trống")]
         [Display(Name = "Địa chỉ")]
         public string Address { get; set; }
         [Required(ErrorMessage = "số điện thoại không được để trống")]
         [Display(Name = "Số điện thoại")]
+        [Phone]
         public string Phone { get; set; }
         [Display(Name = "ảnh đại diện")]
+        [Url]
         public string Avatar { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

@@ -48,6 +48,8 @@ namespace ServerProject.Controllers
             List<Marks> Mk = _context.Marks.Where(m=>m.CourseId == changeId).Include(c=>c.Courses).ToList();
             ViewBag.Mk = Mk;
 
+            List<Students> st1 = _context.Students.Include(a=>a.Accounts).ToList();
+            ViewBag.st1 = st1;
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name");
            
 
@@ -92,8 +94,17 @@ namespace ServerProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                var exisgrades = this._context.Grades.SingleOrDefault(m => m.Name == grades.Name);
+                if (exisgrades != null)
+                {
+                    TempData["fail"] = "Lớp đã tồn tại !!!";
+                    return RedirectToAction(nameof(Create));
+                }
+
+                grades.IsActive = true;
                 _context.Add(grades);
                 await _context.SaveChangesAsync();
+                TempData["succ"] = "Thành công";
                 return RedirectToAction(nameof(Index));
             }
             return View(grades);
@@ -171,7 +182,7 @@ namespace ServerProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddStudent([Bind("RollNumber,GradeId")] StudentGrade studentGrade)
+        public async Task<IActionResult> AddStudent([Bind("RollNumber,GradeId,JoinAt,LeftAt")] StudentGrade studentGrade)
         {
             var st = _context.StudentGrade.Where(r => r.RollNumber == studentGrade.RollNumber)
                 .Where(s => s.GradeId == studentGrade.GradeId).FirstOrDefault();
@@ -191,6 +202,21 @@ namespace ServerProject.Controllers
             ViewData["RollNumber"] = new SelectList(_context.Students, "RollNumber", "RollNumber", studentGrade.RollNumber);
             return View(studentGrade);
         }
+        //[HttpPost]
+        
+        //public async Task<IActionResult> AddStudent2()
+        //{
+        //    StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8);
+        //    string datastring = await reader.ReadToEndAsync();
+        //    StudentGrade studentGrade = JsonConvert.DeserializeObject<StudentGrade>(datastring);
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(studentGrade);
+        //        _context.SaveChanges();
+        //    }
+         
+        //    return View(studentGrade);
+        //}
         public IActionResult CreateGC(int? id)
         {
             ViewData["ID"] = id;
