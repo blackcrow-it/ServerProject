@@ -11,23 +11,23 @@ namespace ServerProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseApi : ControllerBase
+    public class ApiCourse : ControllerBase
     {
         private readonly ServerProjectContext _context;
 
-        public CourseApi(ServerProjectContext context)
+        public ApiCourse(ServerProjectContext context)
         {
             _context = context;
         }
 
-        // GET: api/CourseApi
+        // GET: api/ApiCourse
         [HttpGet]
         public IEnumerable<Courses> GetCourses()
         {
             return _context.Courses;
         }
 
-        // GET: api/CourseApi/5
+        // GET: api/ApiCourse/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCourses([FromRoute] int id)
         {
@@ -46,7 +46,7 @@ namespace ServerProject.Controllers
             return Ok(courses);
         }
 
-        // PUT: api/CourseApi/5
+        // PUT: api/ApiCourse/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCourses([FromRoute] int id, [FromBody] Courses courses)
         {
@@ -81,7 +81,7 @@ namespace ServerProject.Controllers
             return NoContent();
         }
 
-        // POST: api/CourseApi
+        // POST: api/ApiCourse
         [HttpPost]
         public async Task<IActionResult> PostCourses([FromBody] Courses courses)
         {
@@ -96,7 +96,7 @@ namespace ServerProject.Controllers
             return CreatedAtAction("GetCourses", new { id = courses.Id }, courses);
         }
 
-        // DELETE: api/CourseApi/5
+        // DELETE: api/ApiCourse/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourses([FromRoute] int id)
         {
