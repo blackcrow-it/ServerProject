@@ -202,21 +202,21 @@ namespace ServerProject.Controllers
             ViewData["RollNumber"] = new SelectList(_context.Students, "RollNumber", "RollNumber", studentGrade.RollNumber);
             return View(studentGrade);
         }
-        //[HttpPost]
-        
-        //public async Task<IActionResult> AddStudent2()
-        //{
-        //    StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8);
-        //    string datastring = await reader.ReadToEndAsync();
-        //    StudentGrade studentGrade = JsonConvert.DeserializeObject<StudentGrade>(datastring);
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(studentGrade);
-        //        _context.SaveChanges();
-        //    }
-         
-        //    return View(studentGrade);
-        //}
+        [HttpPost]
+
+        public async Task<IActionResult> AddStudent2()
+        {
+            StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8);
+            string datastring = await reader.ReadToEndAsync();
+            StudentGrade studentGrade = JsonConvert.DeserializeObject<StudentGrade>(datastring);
+            if (ModelState.IsValid)
+            {
+                _context.Add(studentGrade);
+                _context.SaveChanges();
+            }
+
+            return this.Json(studentGrade);
+        }
         public IActionResult CreateGC(int? id)
         {
             ViewData["ID"] = id;

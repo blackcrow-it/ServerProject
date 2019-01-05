@@ -112,6 +112,7 @@
                             @foreach (MarkType type in Enum.GetValues(typeof(MarkType)))
                             {
                                 var listMark = listmk.Where(c => c.RollNumber == i.RollNumber).Where(t => t.Type == type);
+
                                 isEmpty = !listMark.Any();
                                 if (isEmpty)
                                 {
@@ -124,6 +125,8 @@
                                 {
                                     foreach (var m in listMark)
                                     {
+                                        <td style="display: none">@m.Id</td>
+                                        <td style="display: none">@m.CourseId</td>
                                         <td>
                                             <p>
                                                 @m.Value
@@ -138,6 +141,8 @@
                                                 }
                                             </p>
                                         </td>
+
+
                                     }
                                 }
                             }
@@ -158,8 +163,11 @@
                                     <label class="label label-danger">FAIL</label>
                                 }
                             </td>
+
                             <td>
-                                <button class="btn btn-primary" id="edit_bth">Sửa</button>
+                                <button type="button" class="btn btn-primary bthEdit2" data-toggle="modal" data-target="#exampleModal" >
+                                    Sửa
+                                </button>
                             </td>
                         </tr>
                     }
@@ -295,39 +303,34 @@
         </div>
     </div>
 </div>
-@*<!---------modal2----------->
-<div class="modal fade " id="NewModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content ">
+<!---------modal2----------->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-               </div>
-            <div class="modal-body col-lg-12">
-                <form >
-                    <input type="text" value="@Model.Id"  id="GradeId" name="GradeId" />
-                    <select class="form-control" id="RollNumber" name="RollNumber">
-                        @foreach (var student in listSt)
-                        {
-                           foreach (var rs in st1.Where(s => s.RollNumber != student.RollNumber))
-                            {
-                                <option value="@rs.RollNumber">@rs.RollNumber - @rs.Accounts.UserName</option>
-                            }
-                        }
-                    </select>
-                    <input type="date" id="JoinAt" name="JoinAt" />
-                    <input type="date" id="LeftAt" name="LeftAt" />
-                    <input type="submit"/>
+                <h5 class="modal-title" id="exampleModalLabel">Sửa điểm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <input type="text" name="Id" id="MId" />
+                    <input type="hidden" name="CourseId" id="cId" />
+                    <input type="hidden" name="RollNumber" id="rollN" />
+
+
+                    Điểm: <input type="number" class="form-control" id="Assignment" name="Value">
+
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="addstd" class="btn btn-success" data-dismiss="modal" form="form1">Thêm</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" id="bth_editFil" data-dismiss="modal" class="btn btn-primary">Lưu</button>
             </div>
         </div>
     </div>
-</div>*@
+</div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
     $(Document).ready(function () {
@@ -348,34 +351,15 @@
                 });
             }
         });
-        //$("#addstd").click(function () {
+        $('.bthEdit2').click(function() {
+            var cId = $(this).parent().parent().find('td:eq(0)').text();
+            var Id = $(this).parent().parent().find('td:eq(3)').text();
+            var roll = $(this).parent().parent().find('td:eq(2)').text();   
             
-        //    var gr = $('#GradeId').val();
-        //    var roll = $('#RollNumber').val();
-        //    var join = $('#JoinAt').val();
-        //    var left = $('#LeftAt').val();
-        //    var send = {
-        //        GradeId: gr,
-        //        RollNumber: roll,
-        //        JoinAt: join,
-        //        LeftAt: left
-        //    };
-        //        console.log(send);
-        //        $.ajax({
-        //            url: "/Grades/AddStudent2",
-        //            type: "POST",
-        //            data: JSON.stringify(send),
-        //            success: function (message) {
-        //                alert(message);
-                        
-        //            },
-        //            error: function (message) {
-        //                alert(message);
-                        
-        //            }
-        //        });
-            
-        //});
+            $('#MId').val(Id);
+            $('#cId').val(cid);
+            $('#rollN').val(roll);
+        });
         var jsonObj = [];
         $("#test").click(function () {
             $("input[name=value]").each(function () {
@@ -391,7 +375,7 @@
 
                 jsonObj.push(item);
             });
-
+           
             console.log(jsonObj);
             if ($('#choseCo').val() != null) {
                     
