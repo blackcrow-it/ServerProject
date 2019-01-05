@@ -43,6 +43,8 @@ namespace ServerProject.Controllers
                         return new JsonResult(credential);
                     }
                 }
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                return new JsonResult("Forbidden");
             }
             Response.StatusCode = (int)HttpStatusCode.NotFound;
             return new JsonResult("NotFound");
