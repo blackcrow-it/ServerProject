@@ -12,6 +12,8 @@ namespace ServerProject.Controllers
     using System.IO;
     using System.Text;
 
+    using Microsoft.AspNetCore.Http;
+
     using Newtonsoft.Json;
 
     public class GradesController : Controller
@@ -22,16 +24,44 @@ namespace ServerProject.Controllers
         {
             _context = context;
         }
+        public bool checkSession()
+        {
+            var ck = false;
+            string currentLogin = HttpContext.Session.GetString("currentLogin");
 
+            if (currentLogin == null)
+            {
+                ck = true;
+            }
+
+            return (ck);
+        }
         // GET: Grades
         public async Task<IActionResult> Index()
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+               
+                return Redirect("/Home/Login");
+            }
             return View(await _context.Grades.Include(m=>m.GradeCourses).Include(s=>s.StudentGrades).ToListAsync());
         }
 
         // GET: Grades/Details/5
         public async Task<IActionResult> Details(int? id ,long changeId)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -82,6 +112,12 @@ namespace ServerProject.Controllers
         // GET: Grades/Create
         public IActionResult Create()
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             return View();
         }
 
@@ -113,6 +149,12 @@ namespace ServerProject.Controllers
         // GET: Grades/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -170,6 +212,12 @@ namespace ServerProject.Controllers
         }
         public IActionResult AddStudent(int? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             List<Students> fundList = _context.Students.Include(m => m.Accounts).ThenInclude(i => i.Informations).ToList();
             ViewBag.Funds = fundList;
            
@@ -219,6 +267,12 @@ namespace ServerProject.Controllers
         }
         public IActionResult CreateGC(int? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             ViewData["ID"] = id;
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name");
             ViewData["GradeId"] = new SelectList(_context.Grades, "Id", "Name");
@@ -271,6 +325,12 @@ namespace ServerProject.Controllers
         }
         public async Task<IActionResult> DetailsInfor(int? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -288,6 +348,12 @@ namespace ServerProject.Controllers
         }
         public async Task<IActionResult> EditInfor(int? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -356,6 +422,31 @@ namespace ServerProject.Controllers
                     else
                     {
                     }
+                }
+                await _context.SaveChangesAsync();
+                return Json("hello");
+            }
+            return this.Ok();
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditListMark()
+        {
+            //var a = await Request.Body.ReadAsync();
+            //return Json(marks.ToString());
+            StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8);
+            string datastring = await reader.ReadToEndAsync();
+            List<Marks> marks = JsonConvert.DeserializeObject<List<Marks>>(datastring);
+
+            if (ModelState.IsValid)
+            {
+
+                foreach (var item in marks)
+                {
+                   
+                    item.CalculateMarkStatus();
+                   
+                        _context.Update(item);
+                   
                 }
                 await _context.SaveChangesAsync();
                 return Json("hello");

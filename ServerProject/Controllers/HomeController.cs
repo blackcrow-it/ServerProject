@@ -34,7 +34,11 @@ namespace ServerProject.Controllers
         public IActionResult Login(Accounts account, string Url)
         {
             var existAccount = _context.Accounts.SingleOrDefault(a => a.UserName == account.UserName);
-            
+            if (existAccount.Role != 1)
+            {
+                TempData["fail"] = "Tài khoản không có quyền truy cập !!!";
+                return Redirect("/Home/Login");
+            }
             if (existAccount != null)
             {
 

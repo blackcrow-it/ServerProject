@@ -98,8 +98,10 @@
                         <th style="width: 10%">Trạng thái</th>
                         <th style="width: 10%"></th>
                     </tr>
+                   
                     </thead>
-                    <tbody id="disableTable">
+                    <tbody id="disableTable" style="display: none">
+                   
                     @foreach (var i in listSt)
                     {
 
@@ -165,7 +167,7 @@
                             </td>
 
                             <td>
-                                <button type="button" class="btn btn-primary bthEdit2" data-toggle="modal" data-target="#exampleModal" >
+                                <button type="button" class="btn btn-primary bthEdit2" data-toggle="modal" data-target="#exampleModal">
                                     Sửa
                                 </button>
                             </td>
@@ -315,18 +317,19 @@
             </div>
             <div class="modal-body">
                 <form method="post">
-                    <input type="text" name="Id" id="MId" />
-                    <input type="hidden" name="CourseId" id="cId" />
-                    <input type="hidden" name="RollNumber" id="rollN" />
-
-
-                    Điểm: <input type="number" class="form-control" id="Assignment" name="Value">
+                    <input type="text" id="crId"/>
+                    <input type="text" id="rollum" />
+                    Điểm lí thuyết: <input type="number" id="value1"  class="form-control Idm" name="Value">
+                   
+                    Điểm thực hành: <input type="number" id="value2"  class="form-control Idm" name="Value">
+                   
+                    Điểm bài tập lớn: <input type="number" id="value3"  class="form-control Idm" name="Value">
 
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" id="bth_editFil" data-dismiss="modal" class="btn btn-primary">Lưu</button>
+                <button type="button" id="bth_editMark" data-dismiss="modal" class="btn btn-primary">Lưu</button>
             </div>
         </div>
     </div>
@@ -351,15 +354,55 @@
                 });
             }
         });
-        $('.bthEdit2').click(function() {
-            var cId = $(this).parent().parent().find('td:eq(0)').text();
-            var Id = $(this).parent().parent().find('td:eq(3)').text();
-            var roll = $(this).parent().parent().find('td:eq(2)').text();   
+        $('.bthEdit2').click(function () {
+            var rl = $(this).parent().parent().find('td:eq(3)').text(); 
+            var cr = $(this).parent().parent().find('td:eq(0)').text();
+            var roll = $(this).parent().parent().find('td:eq(2)').text(); 
+            var Id = $(this).parent().parent().find('td:eq(5)').text();
+            var Al = $(this).parent().parent().find('td:eq(8)').text();  
             
-            $('#MId').val(Id);
-            $('#cId').val(cid);
-            $('#rollN').val(roll);
+            
+            $('#crId').val(rl);
+            $('#rollum').val(cr);
+            $('#value1').prop('title', roll);
+            $('#value2').prop('title', Id);
+            $('#value3').prop('title', Al);
         });
+
+
+        var jsonObj1 = [];
+        $("#bth_editMark").click(function () {
+            $('.Idm').each(function () {
+                var Id = $(this).attr("title");
+                var Value = $(this).val();
+                var RollNumber = $('#rollum').val();
+                var CourseId = $('#crId').val();
+                item = {}
+                item["Id"] = Id;
+                item["RollNumber"] = RollNumber;
+                item["CourseId"] = CourseId;
+                item["Value"] = Value;
+                jsonObj1.push(item);
+            });
+           
+            console.log(jsonObj1);
+            $.ajax({
+                url: "/Grades/EditListMark",
+                type: "POST",
+                data: JSON.stringify(jsonObj1),
+                success: function (message) {
+                    
+                    console.log("Success");
+                    $.notify("Sửa điểm thành công", "success");
+                    setTimeout(location.reload.bind(location), 500);
+                },
+                error: function (message) {
+                    $.notify("Sửa điểm thất bại", "error");
+                }
+            });
+        });
+
+
         var jsonObj = [];
         $("#test").click(function () {
             $("input[name=value]").each(function () {
@@ -416,7 +459,11 @@
                 });
             }
         });
-
+        if (@listmk.Count != 0) {
+            $('#disableTable').show();
+            
+       
+        };
         $("#choseType").focusout(function () {
             var co = $('#choseType').val();
             $('.changeType').val(co);

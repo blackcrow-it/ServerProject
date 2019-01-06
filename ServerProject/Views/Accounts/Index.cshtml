@@ -56,7 +56,8 @@
             <td>
 
                 <a asp-action="EditInfor" class="btn btn-info" asp-route-id="@item.Id">Sửa</a> |
-                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a>
+                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a>|
+                <a asp-action="CreateMark" class="btn btn-info" asp-route-id="@item.Students.RollNumber">Thêm điểm</a>
             </td>
         </tr>
 }

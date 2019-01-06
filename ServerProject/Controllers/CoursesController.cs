@@ -9,6 +9,8 @@ using ServerProject.Models;
 
 namespace ServerProject.Controllers
 {
+    using Microsoft.AspNetCore.Http;
+
     public class CoursesController : Controller
     {
         private readonly ServerProjectContext _context;
@@ -18,15 +20,39 @@ namespace ServerProject.Controllers
             _context = context;
         }
 
+        public bool checkSession()
+        {
+            var ck = false;
+            string currentLogin = HttpContext.Session.GetString("currentLogin");
+
+            if (currentLogin == null)
+            {
+                ck = true;
+            }
+
+            return (ck);
+        }
         // GET: Courses
         public async Task<IActionResult> Index()
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+               
+                return Redirect("/Home/Login");
+            }
             return View(await _context.Courses.ToListAsync());
         }
 
         // GET: Courses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -45,6 +71,12 @@ namespace ServerProject.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+               
+                return Redirect("/Home/Login");
+            }
             return View();
         }
 
@@ -67,6 +99,12 @@ namespace ServerProject.Controllers
         // GET: Courses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+               
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -118,6 +156,12 @@ namespace ServerProject.Controllers
         // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+               
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();

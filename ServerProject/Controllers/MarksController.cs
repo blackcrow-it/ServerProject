@@ -9,6 +9,8 @@ using ServerProject.Models;
 
 namespace ServerProject.Controllers
 {
+    using Microsoft.AspNetCore.Http;
+
     public class MarksController : Controller
     {
         private readonly ServerProjectContext _context;
@@ -17,10 +19,27 @@ namespace ServerProject.Controllers
         {
             _context = context;
         }
+        public bool checkSession()
+        {
+            var ck = false;
+            string currentLogin = HttpContext.Session.GetString("currentLogin");
 
+            if (currentLogin == null)
+            {
+                ck = true;
+            }
+
+            return (ck);
+        }
         // GET: Marks
         public async Task<IActionResult> Index()
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             var serverProjectContext = _context.Marks.Include(m => m.Courses).Include(m => m.Students);
             return View(await serverProjectContext.ToListAsync());
         }
@@ -28,6 +47,12 @@ namespace ServerProject.Controllers
         // GET: Marks/Details/5
         public async Task<IActionResult> Details(long? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -46,8 +71,16 @@ namespace ServerProject.Controllers
         }
 
         // GET: Marks/Create
-        public IActionResult Create()
+        public IActionResult Create(string RollNumber)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
+
+            ViewData["Roll"] = RollNumber;
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Id");
             ViewData["RollNumber"] = new SelectList(_context.Students, "RollNumber", "RollNumber");
             return View();
@@ -88,6 +121,12 @@ namespace ServerProject.Controllers
         // GET: Marks/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+               
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -108,7 +147,7 @@ namespace ServerProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Type,Value,RollNumber,CourseId")] Marks marks)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Value,CourseId")] Marks marks)
         {
             if (id != marks.Id)
             {
@@ -143,6 +182,12 @@ namespace ServerProject.Controllers
         // GET: Marks/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();

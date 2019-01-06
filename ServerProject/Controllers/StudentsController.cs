@@ -10,6 +10,8 @@ using ServerProject.Services;
 
 namespace ServerProject.Controllers
 {
+    using Microsoft.AspNetCore.Http;
+
     public class StudentsController : Controller
     {
         private readonly ServerProjectContext _context;
@@ -18,10 +20,27 @@ namespace ServerProject.Controllers
         {
             _context = context;
         }
+        public bool checkSession()
+        {
+            var ck = false;
+            string currentLogin = HttpContext.Session.GetString("currentLogin");
 
+            if (currentLogin == null)
+            {
+                ck = true;
+            }
+
+            return (ck);
+        }
         // GET: Students
         public async Task<IActionResult> Index()
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+               
+                return Redirect("/Home/Login");
+            }
             var serverProjectContext = _context.Students.Include(s => s.Accounts);
             return View(await serverProjectContext.ToListAsync());
         }
@@ -29,6 +48,12 @@ namespace ServerProject.Controllers
         // GET: Students/Details/5
         public async Task<IActionResult> Details(string id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+               
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -48,6 +73,12 @@ namespace ServerProject.Controllers
         // GET: Students/Create
         public IActionResult Create()
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id");
             return View();
         }
@@ -105,6 +136,12 @@ namespace ServerProject.Controllers
         // GET: Students/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+                
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -158,6 +195,12 @@ namespace ServerProject.Controllers
         // GET: Students/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
+               
+                return Redirect("/Home/Login");
+            }
             if (id == null)
             {
                 return NotFound();
