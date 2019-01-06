@@ -71,7 +71,7 @@ namespace ServerProject.Controllers
         }
 
         // GET: Marks/Create
-        public IActionResult Create(string RollNumber)
+        public IActionResult Create()
         {
             if (this.checkSession())
             {
@@ -80,7 +80,7 @@ namespace ServerProject.Controllers
                 return Redirect("/Home/Login");
             }
 
-            ViewData["Roll"] = RollNumber;
+        
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Id");
             ViewData["RollNumber"] = new SelectList(_context.Students, "RollNumber", "RollNumber");
             return View();
@@ -91,7 +91,7 @@ namespace ServerProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Type,Value,RollNumber,TypeMark,CourseId")] Marks marks)
+        public async Task<IActionResult> Create([Bind("Id,Type,Value,RollNumber,CourseId")] Marks marks)
         {
             var checkmark = _context.Marks.Where(a => a.RollNumber == marks.RollNumber).Where(s => s.Type == marks.Type)
                 .Where(d => d.CourseId == marks.CourseId).FirstOrDefault();
