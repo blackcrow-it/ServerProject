@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ServerProject.Migrations
 {
-    public partial class InitDatabase : Migration
+    public partial class initDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,7 @@ namespace ServerProject.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
+                    Salt = table.Column<string>(nullable: true),
                     Role = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
@@ -60,19 +61,19 @@ namespace ServerProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Types",
+                name: "RollNumberStudents",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    MaxValue = table.Column<float>(nullable: false),
+                    Alphabet = table.Column<string>(nullable: false),
+                    Number = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Types", x => x.Id);
+                    table.PrimaryKey("PK_RollNumberStudents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,13 +159,14 @@ namespace ServerProject.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Value = table.Column<float>(nullable: false),
-                    Status = table.Column<int>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    Value = table.Column<int>(nullable: false),
                     RollNumber = table.Column<string>(nullable: true),
                     TypeMark = table.Column<int>(nullable: false),
                     CourseId = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -181,12 +183,6 @@ namespace ServerProject.Migrations
                         principalTable: "Students",
                         principalColumn: "RollNumber",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Marks_Types_TypeMark",
-                        column: x => x.TypeMark,
-                        principalTable: "Types",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -234,11 +230,6 @@ namespace ServerProject.Migrations
                 column: "RollNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Marks_TypeMark",
-                table: "Marks",
-                column: "TypeMark");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_StudentGrade_GradeId",
                 table: "StudentGrade",
                 column: "GradeId");
@@ -262,13 +253,13 @@ namespace ServerProject.Migrations
                 name: "Marks");
 
             migrationBuilder.DropTable(
+                name: "RollNumberStudents");
+
+            migrationBuilder.DropTable(
                 name: "StudentGrade");
 
             migrationBuilder.DropTable(
                 name: "Courses");
-
-            migrationBuilder.DropTable(
-                name: "Types");
 
             migrationBuilder.DropTable(
                 name: "Grades");

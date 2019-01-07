@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,26 +18,31 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ServerProject</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-            </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
-    </nav>
+        <ul class="nav navbar-nav">
+            <li><a asp-area="" asp-controller="Home" asp-action="Index"><h3 style="margin-top: -9%" >Home</h3></a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+            <li><a asp-area="" asp-controller="Accounts" asp-action="Index">Student</a></li>
+            <li><a asp-area="" asp-controller="Grades" asp-action="Index">Class</a></li>
+            <li><a asp-area="" asp-controller="Courses" asp-action="Index">Subject</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+           
+            <li><a id="bth_login" asp-controller="Home" asp-action="Login"> Login</a></li>
+            <li><a id="bth_logout" asp-controller="Home"  asp-action="logout"> Logout</a></li>
+            <li><a asp-area="" id="user" asp-controller="Accounts" @*asp-action="ChangePass/@Context.Session.GetString("currentLoginId")*@">@Context.Session.GetString("currentLogin")</a></li>
+        </ul>
+    </div>
+</nav>
 
     <partial name="_CookieConsentPartial" />
 
@@ -52,6 +58,7 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/notify.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -67,8 +74,19 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/notify.js"></script>
     </environment>
+<script>
+    $('#user').html();
 
+    if ($('#user').html() != "") {
+        $('#bth_login').remove();
+    } else {
+        $('#bth_logout').remove();
+    }
+    
+
+</script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

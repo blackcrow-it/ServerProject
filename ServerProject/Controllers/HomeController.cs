@@ -8,16 +8,63 @@ using ServerProject.Models;
 
 namespace ServerProject.Controllers
 {
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Http;
+
+    using ServerProject.Security;
+
     public class HomeController : Controller
+
     {
+        private readonly ServerProjectContext _context;
+
+        public HomeController(ServerProjectContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Login(Accounts account, string Url)
+        {
+            var existAccount = _context.Accounts.SingleOrDefault(a => a.UserName == account.UserName);
+            if (existAccount.Role != 1)
+            {
+                TempData["fail"] = "Tài khoản không có quyền truy cập !!!";
+                return Redirect("/Home/Login");
+            }
+            if (existAccount != null)
+            {
 
+                if (existAccount.Password == Handlepassword.GetInstance().EncryptPassword(account.Password, existAccount.Salt))
+                {
+                    HttpContext.Session.SetString("currentLogin", existAccount.UserName);
+                    HttpContext.Session.SetString("currentLoginId", existAccount.Id.ToString());
+                    
+                    HttpContext.Session.SetString("currentLoginRole", existAccount.Role.ToString());
+                   
+                    return Redirect("/Grades/Index");
+                }
+            }
+            return View(account);
+        }
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("currentLogin");
+            HttpContext.Session.Remove("currentLoginId");
+            HttpContext.Session.Remove("currentLoginRole");
+            return Redirect("/Home/Index");
+        }
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = HttpContext.Session.GetString("currentLogin");
 
             return View();
         }

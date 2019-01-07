@@ -10,8 +10,8 @@ using ServerProject.Models;
 namespace ServerProject.Migrations
 {
     [DbContext(typeof(ServerProjectContext))]
-    [Migration("20181228024350_InitDatabase")]
-    partial class InitDatabase
+    [Migration("20181230134112_initDb")]
+    partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,8 @@ namespace ServerProject.Migrations
                     b.Property<string>("Password");
 
                     b.Property<int>("Role");
+
+                    b.Property<string>("Salt");
 
                     b.Property<DateTime>("UpdatedAt");
 
@@ -152,11 +154,13 @@ namespace ServerProject.Migrations
 
                     b.Property<int>("Status");
 
+                    b.Property<int>("Type");
+
                     b.Property<int>("TypeMark");
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<float>("Value");
+                    b.Property<int>("Value");
 
                     b.HasKey("Id");
 
@@ -164,9 +168,28 @@ namespace ServerProject.Migrations
 
                     b.HasIndex("RollNumber");
 
-                    b.HasIndex("TypeMark");
-
                     b.ToTable("Marks");
+                });
+
+            modelBuilder.Entity("ServerProject.Models.RollNumberStudents", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Alphabet")
+                        .IsRequired()
+                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 1)));
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("Number");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RollNumberStudents");
                 });
 
             modelBuilder.Entity("ServerProject.Models.StudentGrade", b =>
@@ -211,25 +234,6 @@ namespace ServerProject.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("ServerProject.Models.Types", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<float>("MaxValue");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime>("UpdatedAt");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Types");
-                });
-
             modelBuilder.Entity("ServerProject.Models.GradeCourse", b =>
                 {
                     b.HasOne("ServerProject.Models.Courses", "Courses")
@@ -261,11 +265,6 @@ namespace ServerProject.Migrations
                     b.HasOne("ServerProject.Models.Students", "Students")
                         .WithMany("Markses")
                         .HasForeignKey("RollNumber");
-
-                    b.HasOne("ServerProject.Models.Types", "Types")
-                        .WithMany("Markses")
-                        .HasForeignKey("TypeMark")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ServerProject.Models.StudentGrade", b =>

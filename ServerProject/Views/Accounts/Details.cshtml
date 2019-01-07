@@ -2,47 +2,151 @@
 
 @{
     ViewData["Title"] = "Details";
+    List<StudentGrade> listSt = ViewBag.Stus as List<StudentGrade>;
+    List<Marks> listmk = ViewBag.MK as List<Marks>;
 }
 
-<h2>Details</h2>
+<h2>@Model.UserName</h2>
+<a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
+<hr/>
+<style>
+    img.img-circle {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #51D2B7;
+    }
+</style>
 
-<div>
-    <h4>Accounts</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Role)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-    </dl>
+<div class="row">
+    <div class="col-md-12 ">
+
+        <a asp-action="EditInfor" class="btn btn-info pull-right" asp-route-id="@Model.Informations.AccountId">Thay đổi thông tin</a>
+       
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="row">
+    <div class="col-md-4" >
+        <img src="@Model.Informations.Avatar" width="200px" class="center-block img-circle" />
+        <dl class="dl-horizontal">
+            <dt>
+                Full name
+            </dt>
+            
+            <dd>
+                @Html.DisplayFor(model => model.Informations.FirstName) @Html.DisplayFor(model => model.Informations.MiddleName) @Html.DisplayFor(model => model.Informations.LastName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Informations.Phone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Informations.Phone)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Informations.Address)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Informations.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Informations.Birthday)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Informations.Birthday)
+            </dd>
+            
+            <dt>
+                Class
+            </dt>
+            <dd>
+                @foreach (var i in listSt.Where(s=>s.RollNumber == Model.Students.RollNumber))
+                {
+                    if (i.RollNumber == null)
+                     {
+                            <h4>Null</h4>
+                     }
+                     else
+                     {
+                         <a asp-action="../Grades/Details" asp-route-id="@i.GradeId" >@i.Grades.Name</a>
+                     }
+                   
+                }
+            </dd>
+        </dl>
+
+    </div>
+    <div class="col-md-8">
+
+        <table class="table">
+            <thead>
+            <tr>
+                @*<th></th>*@
+                <th>tên môn</th>
+                <th>loại điểm</th>
+                <th>điểm</th>
+                <th>Trạng thái</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="myTable">
+            @foreach (var ma in listmk.Where(m=>m.RollNumber == Model.Students.RollNumber))
+            {
+                <tr>
+                    <td style="display: none">@ma.CourseId</td>
+                    <td style="display: none">@ma.Id</td>
+                    <td style="display: none">@ma.RollNumber</td>
+                    <th>@ma.Courses.Name</th>
+
+                    <td> @ma.Type </td>
+                    <td>   @ma.Value</td>
+                    <td>@if (@ma.Status == MarkStatus.PASS)
+                        {
+                            <label class="label label-success">@ma.Status</label>
+                        }
+                        else
+                        {
+                            <label class="label label-danger">@ma.Status</label>
+                            
+                        }
+                        </td>
+
+
+                    <td>
+                        <button type="button" class="btn btn-primary bthEdit" id="bth_editMark" data-toggle="modal" data-target="#exampleModal">
+                            Sửa
+                        </button>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa điểm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" >
+                    <input type="hidden" name="Id" id="Id"/>
+                    <input type="hidden"name="CourseId" id="cId"/>
+                    <input type="hidden"name="RollNumber" id="rollN"/>
+                    
+                    
+                    Điểm: <input type="number" class="form-control" id="Assignment" name="Value">
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" id="bth_editFil" data-dismiss="modal" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+   
