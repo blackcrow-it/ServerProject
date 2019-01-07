@@ -19,7 +19,30 @@ namespace ServerProject.Controllers
         {
             _context = context;
         }
-
+        [HttpGet("list-courses")]
+        public IEnumerable<Courses> ListCourse(string rollNumber)
+        {
+            Dictionary<int, int> dicGrade = new Dictionary<int, int>();
+            Dictionary<int, int> courses = new Dictionary<int, int>();
+            var grades = _context.StudentGrade.Where(r => r.RollNumber == rollNumber);
+            var i = 0;
+            foreach (var item in grades)
+            {
+                i++;
+                dicGrade.Add(i, item.GradeId);
+            }
+            var foo = dicGrade.Values.ToArray();
+            var listGradeCourses = _context.GradeCourse.Where(a => foo.Contains(a.GradeId));
+            i = 0;
+            foreach (var item in listGradeCourses)
+            {
+                i++;
+                courses.Add(i, item.CourseId);
+            }
+            var too = courses.Values.ToArray();
+            var listCourses = _context.Courses.Where(a => too.Contains(a.Id));
+            return listCourses;
+        }
         // GET: api/ApiCourse
         [HttpGet]
         public IEnumerable<Courses> GetCourses()
