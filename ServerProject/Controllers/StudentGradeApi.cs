@@ -24,9 +24,29 @@ namespace ServerProject.Controllers
 // danh sách học sinh học cùng lớp
         // GET: api/StudentGradeApi
         [HttpGet("list-student")]
-        public IEnumerable<StudentGrade> GetStudentGrade(int gradeId)
+        public async Task<IActionResult> GetStudentGrade(int gradeId)
         {
-            return _context.StudentGrade.Where(g=> g.GradeId == gradeId);
+            Dictionary<int, string> student = new Dictionary<int, string>();
+            Dictionary<int, int> information = new Dictionary<int, int>();
+
+            var studentGrades = _context.StudentGrade.Where(r => r.GradeId == gradeId);
+            var j = 0;
+            foreach (var item in studentGrades)
+            {
+                j++;
+                student.Add(j, item.RollNumber);
+            }
+            var too = student.Values.Distinct().ToArray();
+            var listStudent = _context.Students.Where(g => too.Contains(g.RollNumber));
+            var i = 0;
+            foreach (var item in listStudent)
+            {
+                i++;
+                information.Add(i, item.AccountId);
+            }
+            var foo = information.Values.Distinct().ToArray();
+            var listInformation = _context.Informations.Where(s => foo.Contains(s.AccountId));
+            return new JsonResult(listInformation);
         }
 
 // danh sách lớp mà 1 học sinh đang học 

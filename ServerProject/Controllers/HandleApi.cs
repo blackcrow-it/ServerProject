@@ -88,7 +88,6 @@ namespace ServerProject.Controllers
                     _context.SaveChanges();
                     Response.StatusCode = (int)HttpStatusCode.OK;
                     return new JsonResult(existInformations);
-
                     }
             }
             Response.StatusCode = (int)HttpStatusCode.Forbidden;
