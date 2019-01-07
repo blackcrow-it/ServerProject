@@ -415,9 +415,11 @@
         $("#bth_editMark").click(function () {
             $('.Idm').each(function () {
                 var Id = $(this).attr("title");
+                var Type = $(this).attr("name");
                 var Value = $(this).val();
                 var RollNumber = $('#rollum').val();
                 var CourseId = $('#crId').val();
+                console.log(Type);
                 item = {}
                 item["Id"] = Id;
                 item["RollNumber"] = RollNumber;

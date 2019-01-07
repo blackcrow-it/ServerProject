@@ -96,6 +96,7 @@ namespace ServerProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Type,Value,RollNumber,CourseId")] Marks marks)
         {
+           
             var checkmark = _context.Marks.Where(a => a.RollNumber == marks.RollNumber).Where(s => s.Type == marks.Type)
                 .Where(d => d.CourseId == marks.CourseId).FirstOrDefault();
             if (checkmark != null)
