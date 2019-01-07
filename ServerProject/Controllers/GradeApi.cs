@@ -39,8 +39,6 @@ namespace ServerProject.Controllers
             var listStudent = _context.Informations.Where(a => an.Contains(a.AccountId));
             return new JsonResult(listStudent);
         }
-
-        //GET: api/GradeApi
-
+        
     }
 }

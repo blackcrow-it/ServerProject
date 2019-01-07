@@ -149,23 +149,22 @@ namespace ServerProject.Controllers
             return new JsonResult(listCourses);
         }
 
-        // danh sách học sinh trong lớp
+// danh sách học sinh trong lớp
         //GET : api/HandeApi/list-students
-        [HttpGet("student-in-class")]
-        public IActionResult ListStudent()
+        [HttpGet("list-students")]
+        public async Task<IActionResult> ListStudent(string nameGrade)
         {
-            //int gradeId = 4;
-            //Dictionary<int, string> ListStudents = new Dictionary<int, string>();
-            //var students = _context.Grades.Where(a => a.Id == gradeId);
-            //var s = 0;
-            //foreach (var item in students)
-            //{
-            //    s++;
-            //    ListStudents.Add(s, item.Name);
-            //}
-            //var an = ListStudents.Values.ToArray();
-            //var listStudent = _context.Students.Where(a => an.Contains(a.RollNumber));
-            return new JsonResult("Hello");
+            Dictionary<string, string> Students = new Dictionary<string, string>();
+            var students = _context.Grades.Where(a => a.Name == nameGrade);
+            var s = 0;
+            foreach (var item in students)
+            {
+                s++;
+                Students.Add(s, item.Name);
+            }
+            var an = Students.Values.ToArray();
+            var listStudent = _context.Students.Where(a => an.Contains(a.RollNumber));
+            return new JsonResult(listStudent);
         }
     }
 }
