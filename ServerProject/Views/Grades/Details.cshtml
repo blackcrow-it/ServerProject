@@ -343,6 +343,7 @@
                     </div>
                 </div>
             </div>
+
             <!---------modal2----------->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -353,15 +354,61 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <form method="post">
-                                <input type="hidden" id="crId" />
-                                <input type="hidden" id="rollum" />
-                                Điểm lí thuyết: <input type="number" id="value1" class="form-control Idm" name="Value">
+            <div class="modal-body col-lg-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Mã sinh viên</th>
+                        <th>Họ tên</th>
+                        <th style="width: 20%">Điểm</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <form>
+                        @foreach (var i in listSt)
+                        {
+                            <tr>
 
-                                Điểm thực hành: <input type="number" id="value2" class="form-control Idm" name="Value">
+                                <td>@i.Students.RollNumber </td>
+                                <td>@i.Students.Accounts.Informations.FirstName @i.Students.Accounts.Informations.MiddleName @i.Students.Accounts.Informations.LastName</td>
+                                <td>
+                                    <input title="@i.RollNumber" type="text" class="roll form-control" name="value" />
+                                </td>
 
-                                Điểm bài tập lớn: <input type="number" id="value3" class="form-control Idm" name="Value">
+
+                            </tr>
+
+                        }
+                    </form>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="test" class="btn btn-success" data-dismiss="modal">Thêm điểm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!---------modal2----------->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa điểm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <input type="hidden" id="crId" />
+                    <input type="hidden" id="rollum" />
+                    Điểm lí thuyết: <input type="number" id="value1" class="form-control Idm" style="1" name="Value">
+
+                    Điểm thực hành: <input type="number" id="value2" class="form-control Idm" style="2" name="Value">
+
+                    Điểm bài tập lớn: <input type="number" id="value3" class="form-control Idm" style="3" name="Value">
 
                             </form>
                         </div>
@@ -415,7 +462,7 @@
         $("#bth_editMark").click(function () {
             $('.Idm').each(function () {
                 var Id = $(this).attr("title");
-                var Type = $(this).attr("name");
+                var Type = $(this).attr("style");
                 var Value = $(this).val();
                 var RollNumber = $('#rollum').val();
                 var CourseId = $('#crId').val();
