@@ -151,20 +151,20 @@ namespace ServerProject.Controllers
 
 // danh sách học sinh trong lớp
         //GET : api/HandeApi/list-students
-        [HttpGet("list-students")]
-        public async Task<IActionResult> ListStudent(string nameGrade)
-        {
-            Dictionary<string, string> Students = new Dictionary<string, string>();
-            var students = _context.Grades.Where(a => a.Name == nameGrade);
-            var s = 0;
-            foreach (var item in students)
-            {
-                s++;
-                Students.Add(s, item.Name);
-            }
-            var an = Students.Values.ToArray();
-            var listStudent = _context.Students.Where(a => an.Contains(a.RollNumber));
-            return new JsonResult(listStudent);
-        }
+        //[HttpGet("list-students")]
+        //public async Task<IActionResult> ListStudent(string nameGrade)
+        //{
+        //    Dictionary<string, string> Students = new Dictionary<string, string>();
+        //    var students = _context.Grades.Where(a => a.Name == nameGrade);
+        //    var s = 0;
+        //    foreach (var item in students)
+        //    {
+        //        s++;
+        //        Students.Add(s, item.Name);
+        //    }
+        //    var an = Students.Values.ToArray();
+        //    var listStudent = _context.Students.Where(a => an.Contains(a.RollNumber));
+        //    return new JsonResult(listStudent);
+        //}
     }
 }
