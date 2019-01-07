@@ -83,8 +83,7 @@ namespace ServerProject.Controllers
                 
                 return Redirect("/Home/Login");
             }
-
-        
+            
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Id");
             ViewData["RollNumber"] = new SelectList(_context.Students, "RollNumber", "RollNumber");
             return View();

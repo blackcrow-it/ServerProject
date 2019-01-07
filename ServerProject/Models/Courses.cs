@@ -22,6 +22,7 @@ namespace ServerProject.Models
         [Display(Name = "Mô tả")]
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string Avarta { get; set; }
         public DateTime UpdatedAt { get; set; }
         [JsonIgnore]
         public List<Marks> Markses { get; set; }

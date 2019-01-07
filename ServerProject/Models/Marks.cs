@@ -58,6 +58,7 @@ namespace ServerProject.Models
         public int TypeMark { get; set; }
         [Display(Name = "ID môn học")]
         public int CourseId { get; set; }
+        
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public Students Students { get; set; }
