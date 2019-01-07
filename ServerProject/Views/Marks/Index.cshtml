@@ -20,7 +20,7 @@
     }
     .pagination li:hover {
         text-align: center;
-        border: solid 1px black;
+        border: solid 1px white;
         border-radius: 20%;
         background: #2ca8ff;
         margin-right: 10px;
@@ -49,12 +49,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.TypeMark)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CreatedAt)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.UpdatedAt)
-                            </th>
+                           
                             <th>
                                 @Html.DisplayNameFor(model => model.Students)
                             </th>
@@ -80,12 +75,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.TypeMark)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UpdatedAt)
-                                </td>
+                               
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Students.RollNumber)
                                 </td>

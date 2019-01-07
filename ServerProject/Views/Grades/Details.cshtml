@@ -15,368 +15,368 @@
     }
 </style>
 <div class="col-md-12">
-<div class="card">
-<div class="card-body">
-<a asp-action="Index"  class="btn btn-primary"><span  class="glyphicon glyphicon-menu-left"></span> Quay lại</a><b> &nbsp;@Model.Name (@Html.DisplayFor(model => model.StartTime) - @Html.DisplayFor(model => model.EndTime)) </b><a class='btn btn-default btn-xs' asp-action="Edit" asp-route-id="@Model.Id"> <span class="glyphicon glyphicon-edit"></span> Sửa</a>
+    <div class="card">
+        <div class="card-body">
+            <a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a><b> &nbsp;@Model.Name (@Html.DisplayFor(model => model.StartTime) - @Html.DisplayFor(model => model.EndTime)) </b><a class='btn btn-default btn-xs' asp-action="Edit" asp-route-id="@Model.Id"> <span class="glyphicon glyphicon-edit"></span> Sửa</a>
 
-<div>
-    <div class="container">
-        <div class="col-lg-12">
-            <b>Số học sinh: </b>
-            @if (@Model.StudentGrades == null)
-            {
-                <p>Không có học sinh</p>
-            }
-            else
-            {
-                @Model.StudentGrades.Count
-            }|
-            <b>Số môn học: </b>
-            @if (@Model.GradeCourses == null)
-            {
-                <b>0</b>
-            }
-            else
-            {
-                @Model.GradeCourses.Count
-            }|
-            <b>Trạng thái: </b>
-            @if (@Model.IsActive == true)
-            {
-                <label class="label label-success">Đang hoạt động</label>
-            }
-            else
-            {
-                <label class="label label-default">Không hoạt động</label>
-            }
-        </div>
-    </div>
+            <div>
+                <div class="container">
+                    <div class="col-lg-12">
+                        <b>Số học sinh: </b>
+                        @if (@Model.StudentGrades == null)
+                        {
+                            <p>Không có học sinh</p>
+                        }
+                        else
+                        {
+                            @Model.StudentGrades.Count
+                        }|
+                        <b>Số môn học: </b>
+                        @if (@Model.GradeCourses == null)
+                        {
+                            <b>0</b>
+                        }
+                        else
+                        {
+                            @Model.GradeCourses.Count
+                        }|
+                        <b>Trạng thái: </b>
+                        @if (@Model.IsActive == true)
+                        {
+                            <label class="label label-success">Đang hoạt động</label>
+                        }
+                        else
+                        {
+                            <label class="label label-default">Không hoạt động</label>
+                        }
+                    </div>
+                </div>
 
-    <hr />
+                <hr />
 
-</div>
-<div id="main" />
-<div class="container">
-    <div class="group-tabs">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active" style="padding-right: 20px">
-                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Bảng điểm</a>
-            </li>
-            <li role="presentation" style="padding-right: 20px">
-                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Môn học</a>
-            </li>
-            <li role="presentation">
-                <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Danh sách học sinh</a>
-            </li>
-        </ul>
-        <!---------------------------------------------------------------------------------------------------- Tab panes-------------------------------------------------------------------------------------------------------- -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">
-                <table class="table table-striped table-hover" id>
-                    <thead>
-                    <form asp-action="Details">
-                        <div class="col-lg-12" style="margin-top: 1% ">
-                            <div class="col-lg-6 pull-left">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-                                    <span class="glyphicon glyphicon-plus-sign"></span> Thêm điểm
-                                </button>
-                            </div>
-                            <div class="col-lg-6 pull-right">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-10" style="margin-top: 10px">
-                                            <h5 style="text-align: left; float: left; margin-top:4px">Vui lòng chọn môn học &nbsp;</h5>
-                                            <select class="form-control " name="changeId" asp-items="ViewBag.CourseId" ; style="width: 100px"></select>
+            </div>
+            <div id="main" />
+            <div class="container">
+                <div class="group-tabs">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active" style="padding-right: 20px">
+                            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Bảng điểm</a>
+                        </li>
+                        <li role="presentation" style="padding-right: 20px">
+                            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Môn học</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Danh sách học sinh</a>
+                        </li>
+                    </ul>
+                    <!---------------------------------------------------------------------------------------------------- Tab panes-------------------------------------------------------------------------------------------------------- -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <table class="table table-striped table-hover" id>
+                                <thead>
+                                    <form asp-action="Details">
+                                        <div class="col-lg-12" style="margin-top: 1% ">
+                                            <div class="col-lg-6 pull-left">
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                                                    <span class="glyphicon glyphicon-plus-sign"></span> Thêm điểm
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-6 pull-right">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-10" style="margin-top: 10px">
+                                                            <h5 style="text-align: left; float: left; margin-top:4px">Vui lòng chọn môn học &nbsp;</h5>
+                                                            <select class="form-control " name="changeId" asp-items="ViewBag.CourseId" ; style="width: 100px"></select>
+                                                        </div>
+
+                                                        <div class="col-2"><input class="pull-right btn btn-info" id="ChangeIdc" type="submit" value="Đồng ý" /></div>
+                                                    </div>
+                                                </div>
+                                                @*<input class="pull-right btn btn-info" id="ChangeIdc" type="submit" value="Đồng ý" />&nbsp;
+                                                    <select class="form-control pull-right " style="width: 100px" name="changeId" asp-items="ViewBag.CourseId"></select>&nbsp;
+                                                    <h5 class="pull-right">Môn học</h5>&nbsp;*@
+                                            </div>
                                         </div>
-                                       
-                                        <div class="col-2"><input class="pull-right btn btn-info" id="ChangeIdc" type="submit" value="Đồng ý" /></div>
-                                    </div>
-                                </div>
-                                @*<input class="pull-right btn btn-info" id="ChangeIdc" type="submit" value="Đồng ý" />&nbsp;
-                                <select class="form-control pull-right " style="width: 100px" name="changeId" asp-items="ViewBag.CourseId"></select>&nbsp;
-                                <h5 class="pull-right">Môn học</h5>&nbsp;*@
-                            </div>
-                        </div>
-                    </form>
-                    <br />
-                    <br />
-                    <br />
-                    <tr>
-                        <th style="width: 15%">Mã sinh viên</th>
-                        <th style="width: 20%">Họ tên</th>
-                        <th style="width: 15%">Lí thuyết</th>
-                        <th style="width: 15%">Thực hành</th>
-                        <th style="width: 15%">Bài tâp lớn</th>
-                        <th style="width: 15%">Trạng thái</th>
-                        <th style="width: 5%"></th>
-                    </tr>
+                                    </form>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <tr>
+                                        <th style="width: 15%">Mã sinh viên</th>
+                                        <th style="width: 20%">Họ tên</th>
+                                        <th style="width: 15%">Lí thuyết</th>
+                                        <th style="width: 15%">Thực hành</th>
+                                        <th style="width: 15%">Bài tâp lớn</th>
+                                        <th style="width: 15%">Trạng thái</th>
+                                        <th style="width: 5%"></th>
+                                    </tr>
 
-                    </thead>
-                    <tbody id="disableTable" style="display: none">
+                                </thead>
+                                <tbody id="disableTable" style="display: none">
 
-                    @foreach (var i in listSt)
-                    {
-
-                        bool isFail = true;
-                        bool isEmpty = true;
-                        bool isNull = false;
-                        <tr>
-                            <td>@i.Students.RollNumber</td>
-                            <td>@i.Students.Accounts.Informations.FirstName @i.Students.Accounts.Informations.MiddleName @i.Students.Accounts.Informations.LastName</td>
-                            @foreach (MarkType type in Enum.GetValues(typeof(MarkType)))
-                            {
-                                var listMark = listmk.Where(c => c.RollNumber == i.RollNumber).Where(t => t.Type == type);
-
-                                isEmpty = !listMark.Any();
-                                if (isEmpty)
-                                {
-                                    <td>
-                                        <p>Chưa có điểm</p>
-                                    </td>
-                                    isNull = isEmpty;
-                                }
-                                else
-                                {
-                                    foreach (var m in listMark)
+                                    @foreach (var i in listSt)
                                     {
-                                        <td style="display: none">@m.Id</td>
-                                        <td style="display: none">@m.CourseId</td>
-                                        <td>
-                                            <p>
-                                                @m.Value
-                                                @if (@m.Status == MarkStatus.PASS)
+
+                                        bool isFail = true;
+                                        bool isEmpty = true;
+                                        bool isNull = false;
+                                        <tr>
+                                            <td>@i.Students.RollNumber</td>
+                                            <td>@i.Students.Accounts.Informations.FirstName @i.Students.Accounts.Informations.MiddleName @i.Students.Accounts.Informations.LastName</td>
+                                            @foreach (MarkType type in Enum.GetValues(typeof(MarkType)))
+                                            {
+                                                var listMark = listmk.Where(c => c.RollNumber == i.RollNumber).Where(t => t.Type == type);
+
+                                                isEmpty = !listMark.Any();
+                                                if (isEmpty)
                                                 {
-                                                    <label class="label label-success">@m.Status</label>
+                                                    <td>
+                                                        <p>Chưa có điểm</p>
+                                                    </td>
+                                                    isNull = isEmpty;
                                                 }
                                                 else
                                                 {
-                                                    <label class="label label-danger">@m.Status</label>
-                                                    isFail = false;
+                                                    foreach (var m in listMark)
+                                                    {
+                                                        <td style="display: none">@m.Id</td>
+                                                        <td style="display: none">@m.CourseId</td>
+                                                        <td>
+                                                            <p>
+                                                                @m.Value
+                                                                @if (@m.Status == MarkStatus.PASS)
+                                                                {
+                                                                    <label class="label label-success">@m.Status</label>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="label label-danger">@m.Status</label>
+                                                                    isFail = false;
+                                                                }
+                                                            </p>
+                                                        </td>
+
+
+                                                    }
                                                 }
-                                            </p>
-                                        </td>
+                                            }
+                                            <td>
+                                                @if (isFail)
+                                                {
+                                                    if (isNull)
+                                                    {
+                                                        <label class="label label-default">NULL</label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="label label-success">PASS</label>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <label class="label label-danger">FAIL</label>
+                                                }
+                                            </td>
 
-
+                                            <td>
+                                                <button type="button" class="btn btn-primary bthEdit2" data-toggle="modal" data-target="#exampleModal">
+                                                    Sửa
+                                                </button>
+                                            </td>
+                                        </tr>
                                     }
-                                }
-                            }
-                            <td>
-                                @if (isFail)
-                                {
-                                    if (isNull)
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile">
+                            <table class="table table-striped ">
+                                <thead>
+                                    <a asp-action="CreateGC" style="margin-top: 1.5%" class="btn btn-success pull-right" asp-route-id="@Model.Id">
+                                        <span class="glyphicon glyphicon-plus-sign"></span>Thêm môn học
+                                    </a>
+                                    <tr>
+                                        <th>Tên môn học</th>
+                                        <th>Ngày bắt đầu</th>
+                                        <th>Ngày kết thúc</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var i in list)
                                     {
-                                        <label class="label label-default">NULL</label>
+                                        <tr>
+                                            <td>@i.Courses.Name</td>
+                                            <td>@i.StartTime</td>
+                                            <td>@i.EndTime</td>
+                                            <td>
+                                                @*<input type="button" value="Delete" class="bthDeletec btn btn-danger" id="@i.CourseId" name="@i.GradeId" />*@
+                                            </td>
+                                        </tr>
                                     }
-                                    else
-                                    {
-                                        <label class="label label-success">PASS</label>
-                                    }
-                                }
-                                else
-                                {
-                                    <label class="label label-danger">FAIL</label>
-                                }
-                            </td>
-
-                            <td>
-                                <button type="button" class="btn btn-primary bthEdit2" data-toggle="modal" data-target="#exampleModal">
-                                    Sửa
-                                </button>
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="profile">
-                <table class="table table-striped ">
-                    <thead>
-                    <a asp-action="CreateGC" style="margin-top: 1.5%" class="btn btn-success pull-right" asp-route-id="@Model.Id">
-                        <span class="glyphicon glyphicon-plus-sign"></span>Thêm môn học
-                    </a>
-                    <tr>
-                        <th>Tên môn học</th>
-                        <th>Ngày bắt đầu</th>
-                        <th>Ngày kết thúc</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach (var i in list)
-                    {
-                        <tr>
-                            <td>@i.Courses.Name</td>
-                            <td>@i.StartTime</td>
-                            <td>@i.EndTime</td>
-                            <td>
-                                @*<input type="button" value="Delete" class="bthDeletec btn btn-danger" id="@i.CourseId" name="@i.GradeId" />*@
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="messages">
-                <div role="tabpanel" class="tab-pane" id="messages">
-                    <table class="table table-striped ">
-                        <thead>
-                        <br />
-                        <a asp-action="AddStudent" class="btn btn-success pull-right" asp-route-id="@Model.Id">
-                            <span class="glyphicon glyphicon-plus-sign"></span>Thêm học sinh
-                        </a>
-                        @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#NewModal">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="messages">
+                            <div role="tabpanel" class="tab-pane" id="messages">
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <br />
+                                        <a asp-action="AddStudent" class="btn btn-success pull-right" asp-route-id="@Model.Id">
+                                            <span class="glyphicon glyphicon-plus-sign"></span>Thêm học sinh
+                                        </a>
+                                        @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#NewModal">
                                                 <span class="glyphicon glyphicon-plus-sign"></span> Thêm học sinh
                                             </button>*@
-                        <tr>
-                            <th>Mã sinh viên</th>
-                            <th>Họ tên</th>
-                            <th>Ngày vào học</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (var i in listSt)
-                        {
-                            <tr>
-                                <td>@i.RollNumber</td>
-                                <td>@i.Students.Accounts.Informations.FirstName @i.Students.Accounts.Informations.MiddleName @i.Students.Accounts.Informations.LastName</td>
-                                <td>@i.JoinAt</td>
-                                <td>
-                                    <a asp-action="../Accounts/Details" class="btn btn-primary" asp-route-id="@i.Students.Accounts.Id">Chi tiết</a>
-                                    @*<input type="button" value="Delete" class="bthDelete btn btn-danger" id="@i.RollNumber" name="@i.GradeId" />*@
-                                </td>
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-<div class="modal fade " id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content ">
-            <div class="modal-header">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-5">
-                            <b>Kiểu điểm :</b>
-                            <select id="choseType" style="width: 180px" class="form-control ">
-                                <option value="1">Lý thuyết</option>
-                                <option value="2">Thực hành</option>
-                                <option value="3">Bài tập lớn</option>
-                            </select>
-                        </div>
-                        <div class="col-5">
-                            <b>Môn học:</b>
-                            <select class="form-control " style="width: 180px" id="choseCo">
-                                @foreach (var classc in list)
-                                {
-                                    <option value="@classc.CourseId">@classc.Courses.Name</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <tr>
+                                            <th>Mã sinh viên</th>
+                                            <th>Họ tên</th>
+                                            <th>Ngày vào học</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var i in listSt)
+                                        {
+                                            <tr>
+                                                <td>@i.RollNumber</td>
+                                                <td>@i.Students.Accounts.Informations.FirstName @i.Students.Accounts.Informations.MiddleName @i.Students.Accounts.Informations.LastName</td>
+                                                <td>@i.JoinAt</td>
+                                                <td>
+                                                    <a asp-action="../Accounts/Details" class="btn btn-primary" asp-route-id="@i.Students.Accounts.Id">Chi tiết</a>
+                                                    @*<input type="button" value="Delete" class="bthDelete btn btn-danger" id="@i.RollNumber" name="@i.GradeId" />*@
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-                @*<button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="col-lg-5 pull-right" style="margin-top: 10px">
-                    <b>Kiểu điểm :</b>
-                    <select id="choseType" style="width:200px" class="form-control ">
-                        <option value="1">Lý thuyết</option>
-                        <option value="2">Thực hành</option>
-                        <option value="3">Bài tập lớn</option> 
-                    </select>
+            </div>
+            <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+            <div class="modal fade " id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <div class="container">
+                                <div class="row">
+
+                                    <div class="col-5">
+                                        <b>Kiểu điểm :</b>
+                                        <select id="choseType" style="width: 180px" class="form-control ">
+                                            <option value="1">Lý thuyết</option>
+                                            <option value="2">Thực hành</option>
+                                            <option value="3">Bài tập lớn</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-5">
+                                        <b>Môn học:</b>
+                                        <select class="form-control " style="width: 180px" id="choseCo">
+                                            @foreach (var classc in list)
+                                            {
+                                                <option value="@classc.CourseId">@classc.Courses.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="col-lg-5 pull-right" style="margin-top: 10px">
+                                    <b>Kiểu điểm :</b>
+                                    <select id="choseType" style="width:200px" class="form-control ">
+                                        <option value="1">Lý thuyết</option>
+                                        <option value="2">Thực hành</option>
+                                        <option value="3">Bài tập lớn</option>
+                                    </select>
+                                </div>
+                                <br />
+                                <div class="col-lg-5 pull-left" style="margin-top: -10px">
+                                    <b>Môn học:</b>
+                                    <select class="form-control " style="width: 200px" id="choseCo">
+                                        @foreach (var classc in list)
+                                        {
+                                            <option value="@classc.CourseId">@classc.Courses.Name</option>
+                                        }
+                                    </select>
+                                </div>*@
+                        </div>
+                        <div class="modal-body col-lg-12">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Mã sinh viên</th>
+                                        <th>Họ tên</th>
+                                        <th style="width: 20%">Điểm</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <form>
+                                        @foreach (var i in listSt)
+                                        {
+                                            <tr>
+
+                                                <td>@i.Students.RollNumber </td>
+                                                <td>@i.Students.Accounts.Informations.FirstName @i.Students.Accounts.Informations.MiddleName @i.Students.Accounts.Informations.LastName</td>
+                                                <td>
+                                                    <input title="@i.RollNumber" type="text" class="roll form-control" name="value" />
+                                                </td>
+
+
+                                            </tr>
+
+                                        }
+                                    </form>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="test" class="btn btn-success" data-dismiss="modal">Thêm điểm</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
                 </div>
-                <br />
-                <div class="col-lg-5 pull-left" style="margin-top: -10px">
-                    <b>Môn học:</b>
-                    <select class="form-control " style="width: 200px" id="choseCo">
-                        @foreach (var classc in list)
-                        {
-                            <option value="@classc.CourseId">@classc.Courses.Name</option>
-                        }
-                    </select>
-                </div>*@
             </div>
-            <div class="modal-body col-lg-12">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Mã sinh viên</th>
-                        <th>Họ tên</th>
-                        <th style="width: 20%">Điểm</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <form>
-                        @foreach (var i in listSt)
-                        {
-                            <tr>
+            <!---------modal2----------->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Sửa điểm</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post">
+                                <input type="hidden" id="crId" />
+                                <input type="hidden" id="rollum" />
+                                Điểm lí thuyết: <input type="number" id="value1" class="form-control Idm" name="Value">
 
-                                <td>@i.Students.RollNumber </td>
-                                <td>@i.Students.Accounts.Informations.FirstName @i.Students.Accounts.Informations.MiddleName @i.Students.Accounts.Informations.LastName</td>
-                                <td>
-                                    <input title="@i.RollNumber" type="text" class="roll form-control" name="value" />
-                                </td>
+                                Điểm thực hành: <input type="number" id="value2" class="form-control Idm" name="Value">
 
+                                Điểm bài tập lớn: <input type="number" id="value3" class="form-control Idm" name="Value">
 
-                            </tr>
-
-                        }
-                    </form>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button id="test" class="btn btn-success" data-dismiss="modal">Thêm điểm</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            <button type="button" id="bth_editMark" data-dismiss="modal" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!---------modal2----------->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sửa điểm</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post">
-                    <input type="hidden" id="crId" />
-                    <input type="hidden" id="rollum" />
-                    Điểm lí thuyết: <input type="number" id="value1" class="form-control Idm" name="Value">
-
-                    Điểm thực hành: <input type="number" id="value2" class="form-control Idm" name="Value">
-
-                    Điểm bài tập lớn: <input type="number" id="value3" class="form-control Idm" name="Value">
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" id="bth_editMark" data-dismiss="modal" class="btn btn-primary">Lưu</button>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-</div>
-            <script src="~/lib/jquery/dist/jquery.min.js"></script>
-            <script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
     $(Document).ready(function () {
         $(".bthDelete").click(function () {
             var currentBtn = $(this);
@@ -518,4 +518,4 @@
 
     });
 
-            </script>
+</script>

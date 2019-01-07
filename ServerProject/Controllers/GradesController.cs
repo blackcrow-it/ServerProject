@@ -425,6 +425,7 @@ namespace ServerProject.Controllers
                     }
                     else
                     {
+                        return Json("hello");
                     }
                 }
                 await _context.SaveChangesAsync();
@@ -448,7 +449,7 @@ namespace ServerProject.Controllers
                 {
                    
                     item.CalculateMarkStatus();
-                   
+                    item.TypeMark = 1;
                         _context.Update(item);
                    
                 }
