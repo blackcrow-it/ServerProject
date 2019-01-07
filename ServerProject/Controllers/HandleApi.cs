@@ -145,15 +145,15 @@ namespace ServerProject.Controllers
                 j++;
                 dicGrade.Add(j, item.GradeId);
             }
-            var too = dicGrade.Values.ToArray();
+            var too = dicGrade.Values.Distinct().ToArray();
             var grades = _context.GradeCourse.Where(g => too.Contains(g.GradeId));
             var i = 0;
             foreach (var item in grades)
             {
                 i++;
-                courses.Add(i, item.GradeId);
+                courses.Add(i, item.CourseId);
             }
-            var foo = courses.Values.ToArray();
+            var foo = courses.Values.Distinct().ToArray();
             var listCourses = _context.Courses.Where(a => foo.Contains(a.Id));
             return new JsonResult(listCourses);
         }
