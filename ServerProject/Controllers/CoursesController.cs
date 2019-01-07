@@ -85,7 +85,7 @@ namespace ServerProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreatedAt,UpdatedAt")] Courses courses)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Avarta")] Courses courses)
         {
             if (ModelState.IsValid)
             {
@@ -123,7 +123,7 @@ namespace ServerProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CreatedAt,UpdatedAt")] Courses courses)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Avarta")] Courses courses)
         {
             if (id != courses.Id)
             {

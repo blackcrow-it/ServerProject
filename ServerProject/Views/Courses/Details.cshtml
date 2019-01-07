@@ -3,40 +3,41 @@
 @{
     ViewData["Title"] = "Details";
 }
+<div class="col-md-12">
+<div class="card">
+    <div class="card-body">
+        <h2>Chi tiết</h2>
 
-<h2>Details</h2>
-
-<div>
-    <a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-    </dl>
+        <div>
+            <a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedAt)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedAt)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.UpdatedAt)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UpdatedAt)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Id">Sửa</a> 
-    
 </div>

@@ -3,115 +3,119 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <h2>Sửa thông tin</h2>
 
-<h2>Edit</h2>
+            <a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
+            <hr />
+            <div class="container ">
 
-<a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
-<hr />
-<div class="container ">
-
-    <div class="row">
-        <div class="col-sm-3">
-            <!--left col-->
+                <div class="row">
+                    <div class="col-sm-3">
+                        <!--left col-->
 
 
-            <div class="text-center">
-                <img src="@Model.Avatar" class="avatar img-circle img-thumbnail" style="width: 200px" id="imgs" alt="avatar">
-            </div><br>
-        </div><!--/col-3-->
-        <div class="col-sm-9">
-            <div class="tab-content">
-                <div class="tab-pane active" id="home">
-                    
-                    <form asp-action="EditInfor">
-                        <h5 class="text-danger">@TempData["fail2"]</h5>
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <input type="hidden" asp-for="AccountId" />
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label asp-for="Email" class="control-label"></label>
-                                <input asp-for="Email" class="form-control" />
+                        <div class="text-center">
+                            <img src="@Model.Avatar" class="center-block img-circle img-thumbnail"  id="imgs" alt="avatar">
+                        </div><br>
+                    </div><!--/col-3-->
+                    <div class="col-sm-9">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home">
 
-                            </div>
-                        </div>
+                                <form asp-action="EditInfor">
+                                    <h5 class="text-danger">@TempData["fail2"]</h5>
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <input type="hidden" asp-for="AccountId" />
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label asp-for="Email" class="control-label"></label>
+                                            <input asp-for="Email" class="form-control" />
 
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label asp-for="Avatar" class="control-label"></label>
-                                <input asp-for="Avatar" id="ava" class="form-control" />
+                                        </div>
+                                    </div>
 
-                            </div>
-                        </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label asp-for="Avatar" class="control-label"></label>
+                                            <input asp-for="Avatar" id="ava" class="form-control" />
 
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label asp-for="FirstName" class="control-label"></label>
-                                <input asp-for="FirstName" class="form-control" />
+                                        </div>
+                                    </div>
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label asp-for="Phone" class="control-label"></label>
-                                <input asp-for="Phone" class="form-control " />
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label asp-for="FirstName" class="control-label"></label>
+                                            <input asp-for="FirstName" class="form-control" />
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label asp-for="LastName" class="control-label"></label>
-                                <input asp-for="LastName" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label asp-for="Phone" class="control-label"></label>
+                                            <input asp-for="Phone" class="form-control " />
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label asp-for="Address" class="control-label"></label>
-                                <input asp-for="Address" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label asp-for="LastName" class="control-label"></label>
+                                            <input asp-for="LastName" class="form-control" />
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label asp-for="MiddleName" class="control-label"></label>
-                                <input asp-for="MiddleName" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label asp-for="Address" class="control-label"></label>
+                                            <input asp-for="Address" class="form-control" />
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label asp-for="Birthday" class="control-label"></label>
-                                <input asp-for="Birthday" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label asp-for="MiddleName" class="control-label"></label>
+                                            <input asp-for="MiddleName" class="form-control" />
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label asp-for="Gender" class="control-label"></label>
-                                <select asp-for="Gender" class="form-control">
-                                    <option value="1">Male</option>
-                                    <option value="0">Female</option>
-                                    <option value="2">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <input type="submit" value="Edit" class="btn btn-primary " style="margin-top: 3%" />
-                            </div>
-                        </div>
-                    </form>
-                    <hr>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label asp-for="Birthday" class="control-label"></label>
+                                            <input asp-for="Birthday" class="form-control" />
 
-                </div><!--/tab-pane-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label asp-for="Gender" class="control-label"></label>
+                                            <select asp-for="Gender" class="form-control">
+                                                <option value="1">Male</option>
+                                                <option value="0">Female</option>
+                                                <option value="2">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="submit" value="Sửa" class="btn btn-primary " style="margin-top: 3%" />
+                                        </div>
+                                    </div>
+                                </form>
+                                <hr>
 
-            </div><!--/col-9-->
-        </div><!--/row-->
+                            </div><!--/tab-pane-->
+
+                        </div><!--/col-9-->
+                    </div><!--/row-->
+                </div>
+            </div>
+
+
+        </div>
     </div>
 </div>
-
-
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

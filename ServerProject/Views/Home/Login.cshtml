@@ -6,11 +6,7 @@
 <head>
     <title>title</title>
     <style>
-        body#LoginForm {
-            background-position: center;
-            background-size: cover;
-            padding: 59px;
-        }
+       
 
         .form-heading {
             color: #fff;
@@ -69,6 +65,7 @@
             height: 50px;
             line-height: 50px;
             padding: 0;
+            
         }
 
         .forgot {
@@ -99,36 +96,42 @@
     </style>
 </head>
 <body id="LoginForm">
-    <div class="container">
+<div class="col-md-12">
+<div class="card">
+<div class="card-body">
 
-        <div class="login-form">
-            <div class="main-div">
-                <div class="panel">
-                    <h2>Admin Login</h2>
-                    <p>Please enter your email and password</p>
-                </div>
+    <div class="login-form">
+        <div class="main-div">
+            
+            <div class="panel">
+                <h2><b>Đăng nhập giáo vụ</b></h2>
+                <p>Vui lòng nhập tên đăng nhập và mật khẩu</p>
+            </div>
                 <form asp-action="Login">
                     <h5 class="text-danger">@TempData["fail"]</h5>
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="UserName" class="control-label"></label>
-                        <input asp-for="UserName" class="form-control"/>
+                        <label asp-for="UserName" class="control-label"><b>Tên đăng nhập</b></label>
+                        <input asp-for="UserName" required="required" class="form-control"/>
 
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Password" class="control-label"></label>
-                        <input asp-for="Password" type="password" class="form-control"/>
+                        <label asp-for="Password" class="control-label"><b>Mật khẩu</b></label>
+                        <input asp-for="Password" required="required" type="password" class="form-control"/>
 
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Login" class="btn btn-success"/>
+                        <input type="submit" value="Đăng nhập" class="btn btn-success"/>
                     </div>
                 </form>
-            </div>
             
         </div>
+            
     </div>
+</div>
+    </div>
+</div>
 </body>
 
 </html>

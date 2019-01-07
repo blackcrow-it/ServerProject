@@ -10,91 +10,114 @@
         border: 2px solid #51D2B7;
     }
 </style>
-<h2>Create</h2>
 
-<a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
-<hr />
-<div class="row">
-    <div class="col-sm-12"><!--left col-->
-       
 
-        <div class="text-center">
-            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" id="imgs" alt="avatar">
-        </div><br>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <h2>Sửa</h2>
+
+            <a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
+            <hr />
+            <div class="container ">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <!--left col-->
+
+
+                        <div class="text-center">
+                            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="center-block img-circle img-thumbnail" id="imgs" alt="avatar">
+                        </div><br>
+                    </div><!--/col-3-->
+                    <div class="col-sm-9">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home">
+
+                                <form asp-action="Create">
+
+
+                                    <h5 class="text-danger">@TempData["fail"]</h5>
+                                    <h5 class="text-danger">@TempData["fail2"]</h5>
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="UserName" class="control-label"></label>
+                                        <input asp-for="UserName" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Password" class="control-label"></label>
+                                        <input asp-for="Password" type="password" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="ConfirmPassword" class="control-label"></label>
+                                        <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                                    </div>
+
+
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Informations.Avatar" class="control-label"></label>
+                                        <input asp-for="Informations.Avatar" id="ava" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Informations.FirstName" class="control-label"></label>
+                                        <input asp-for="Informations.FirstName" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Informations.MiddleName" class="control-label"></label>
+                                        <input asp-for="Informations.MiddleName" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Informations.LastName" class="control-label"></label>
+                                        <input asp-for="Informations.LastName" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Informations.Gender" class="control-label"></label>
+                                        <select asp-for="Informations.Gender" class="form-control">
+                                            <option value="1">Male</option>
+                                            <option value="0">Female</option>
+                                            <option value="2">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Informations.Birthday" class="control-label"></label>
+                                        <input asp-for="Informations.Birthday" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Informations.Email" class="control-label"></label>
+                                        <input asp-for="Informations.Email" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Informations.Address" class="control-label"></label>
+                                        <input asp-for="Informations.Address" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label asp-for="Informations.Phone" class="control-label"></label>
+                                        <input asp-for="Informations.Phone" class="form-control" />
+                                    </div>
+
+
+                                    <div class="form-group col-lg-10 ">
+                                        <input type="reset" value="Reset" class="btn btn-primary " />
+                                        <input type="submit" value="Create" id="avachange" class="btn btn-primary " />
+                                    </div>
+                                </form>
+                                
+
+                            </div><!--/tab-pane-->
+
+                        </div><!--/col-9-->
+                    </div><!--/row-->
+                </div>
+            </div>
+
+
+        </div>
     </div>
-    <form asp-action="Create">
-        <div class="col-lg-12 ">
-            
-            <h5 class="text-danger">@TempData["fail"]</h5>
-            <h5 class="text-danger">@TempData["fail2"]</h5>
-            <div asp-validation-summary="All" class="text-danger"></div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password"  class="control-label"></label>
-                <input asp-for="Password" type="password" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" type="password" class="form-control"/>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="Informations.Avatar" class="control-label"></label>
-                <input asp-for="Informations.Avatar" id="ava" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="Informations.FirstName" class="control-label"></label>
-                <input asp-for="Informations.FirstName" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="Informations.MiddleName" class="control-label"></label>
-                <input asp-for="Informations.MiddleName" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="Informations.LastName" class="control-label"></label>
-                <input asp-for="Informations.LastName" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="Informations.Gender" class="control-label"></label>
-                <select asp-for="Informations.Gender" class="form-control">
-                    <option value="1">Male</option>
-                    <option value="0">Female</option>
-                    <option value="2">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Informations.Birthday" class="control-label"></label>
-                <input asp-for="Informations.Birthday" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="Informations.Email" class="control-label"></label>
-                <input asp-for="Informations.Email" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="Informations.Address" class="control-label"></label>
-                <input asp-for="Informations.Address" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="Informations.Phone" class="control-label"></label>
-                <input asp-for="Informations.Phone" class="form-control"/>
-            </div>
-
-        </div>
-        <div class="form-group col-lg-10 ">
-            <input type="reset" value="Reset" class="btn btn-primary pull-right" />
-            <input type="submit" value="Create" id="avachange" class="btn btn-primary pull-right" />
-        </div>
-    </form>
 </div>
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
