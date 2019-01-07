@@ -5,7 +5,9 @@
     List<StudentGrade> listSt = ViewBag.Stus as List<StudentGrade>;
     List<Marks> listmk = ViewBag.MK as List<Marks>;
 }
-
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
 <h2>@Model.UserName</h2>
 <a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
 <hr/>
@@ -149,4 +151,6 @@
         </div>
     </div>
 </div>
-   
+</div>
+</div>
+</div>

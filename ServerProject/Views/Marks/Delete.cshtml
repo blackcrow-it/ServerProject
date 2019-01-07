@@ -3,67 +3,72 @@
 @{
     ViewData["Title"] = "Delete";
 }
+<div class="col-md-12">
+<div class="card">
+    <div class="card-body">
+        <h2>Delete</h2>
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Marks</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Value)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Value)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TypeMark)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TypeMark)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Students)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Students.RollNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Courses)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Courses.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-    </dl>
+        <a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
+        <div>
+            <h4>Marks</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Value)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Value)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TypeMark)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TypeMark)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedAt)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedAt)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.UpdatedAt)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UpdatedAt)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Students)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Students.RollNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Courses)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Courses.Id)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+            </dl>
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="btn btn-primary" /> 
+               
+            </form>
+        </div>
+    </div>
 </div>
+    </div>

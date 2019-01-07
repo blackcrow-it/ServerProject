@@ -6,11 +6,7 @@
 <head>
     <title>title</title>
     <style>
-        body#LoginForm {
-            background-position: center;
-            background-size: cover;
-            padding: 59px;
-        }
+       
 
         .form-heading {
             color: #fff;
@@ -99,36 +95,40 @@
     </style>
 </head>
 <body id="LoginForm">
-    <div class="container">
+<div class="col-md-12">
+<div class="card">
+<div class="card-body">
 
-        <div class="login-form">
-            <div class="main-div">
-                <div class="panel">
-                    <h2>Admin Login</h2>
-                    <p>Please enter your email and password</p>
-                </div>
-                <form asp-action="Login">
-                    <h5 class="text-danger">@TempData["fail"]</h5>
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="UserName" class="control-label"></label>
-                        <input asp-for="UserName" class="form-control"/>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Password" class="control-label"></label>
-                        <input asp-for="Password" type="password" class="form-control"/>
-
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Login" class="btn btn-success"/>
-                    </div>
-                </form>
+    <div class="login-form">
+        <div class="main-div">
+            <div class="panel">
+                <h2>Admin Login</h2>
+                <p>Please enter your email and password</p>
             </div>
-            
+            <form asp-action="Login">
+                <h5 class="text-danger">@TempData["fail"]</h5>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input asp-for="UserName" class="form-control"/>
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" type="password" class="form-control"/>
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-success"/>
+                </div>
+            </form>
         </div>
+            
     </div>
+</div>
+    </div>
+</div>
 </body>
 
 </html>

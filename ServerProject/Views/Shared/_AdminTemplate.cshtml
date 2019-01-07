@@ -71,6 +71,12 @@
                             <p>Danh sách sinh viên</p>
                         </a>
                     </li>
+                    <li>
+                        <a asp-area="" asp-controller="Marks" asp-action="Index">
+                            <i class="now-ui-icons business_badge"></i>
+                            <p>Danh sách điểm</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -135,13 +141,9 @@
             </div>
             <div class="content">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
+                
                             @RenderBody()
-                        </div>
-                    </div>
-                </div>
+                        
             </div>
             <footer class="footer">
                 <div class="container">

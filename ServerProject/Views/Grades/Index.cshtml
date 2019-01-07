@@ -3,70 +3,76 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <h2>Index</h2>
 
-<h2>Index</h2>
+            <p>
+                <a asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Thêm lớp</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StartTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EndTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsActive)
+                        </th>
+                        <th>
+                            Số học sinh
+                        </th>
+                        <th>
+                            Số môn học
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndTime)
+                            </td>
+                            <td>
+                                @if (item.IsActive == true)
+                                {
+                                    <label class="label label-success">Đang hoạt động</label>
+                                }
+                                else
+                                {
+                                    <label class="label label-default">Không hoạt động</label>
+                                }
+                            </td>
+                            <td>
+                                @item.StudentGrades.Count
+                            </td>
+                            <td>
+                                @item.GradeCourses.Count
+                            </td>
+                            <td>
+                                <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Sửa</a> 
+                                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a>
 
-<p>
-    <a asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Thêm lớp</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th>
-              Số học sinh
-            </th>
-            <th>
-               Số môn học
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
-            </td>
-            <td>
-                @if (item.IsActive == true)
-                {
-                    <label class="label label-success">Đang hoạt động</label>
-                }
-                else
-                {
-                    <label class="label label-default">Không hoạt động</label>
-                }
-            </td>
-            <td>
-               @item.StudentGrades.Count
-            </td>
-            <td>
-               @item.GradeCourses.Count
-            </td>
-            <td>
-                <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Sửa</a> |
-                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a> 
-                
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
