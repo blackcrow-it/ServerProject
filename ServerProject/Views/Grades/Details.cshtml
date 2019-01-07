@@ -419,12 +419,13 @@
                 var Value = $(this).val();
                 var RollNumber = $('#rollum').val();
                 var CourseId = $('#crId').val();
-                console.log(Type);
+                
                 item = {}
                 item["Id"] = Id;
                 item["RollNumber"] = RollNumber;
                 item["CourseId"] = CourseId;
                 item["Value"] = Value;
+                item["Type"] = Type;
                 jsonObj1.push(item);
             });
 
