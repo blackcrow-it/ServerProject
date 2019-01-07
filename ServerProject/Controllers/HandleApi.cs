@@ -136,8 +136,17 @@ namespace ServerProject.Controllers
         [HttpGet("list-courses")]
         public async Task<IActionResult> ListCourse(string rollNumber)
         {
+            Dictionary<int, int> dicGrade = new Dictionary<int, int>();
             Dictionary<int, int> courses = new Dictionary<int, int>();
-            var grades = _context.StudentGrade.Where(r => r.RollNumber == rollNumber);
+            var studentGrades = _context.StudentGrade.Where(r => r.RollNumber == rollNumber);
+            var j = 0;
+            foreach (var item in studentGrades)
+            {
+                j++;
+                dicGrade.Add(j, item.GradeId);
+            }
+            var too = dicGrade.Values.ToArray();
+            var grades = _context.GradeCourse.Where(g => too.Contains(g.GradeId));
             var i = 0;
             foreach (var item in grades)
             {
