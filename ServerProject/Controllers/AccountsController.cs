@@ -15,6 +15,8 @@ namespace ServerProject.Controllers
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Http;
 
+    using ReflectionIT.Mvc.Paging;
+
     using ServerProject.Security;
 
     public class AccountsController : Controller
@@ -40,7 +42,7 @@ namespace ServerProject.Controllers
 
         // GET: Accounts
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             if (this.checkSession())
             {
@@ -48,7 +50,9 @@ namespace ServerProject.Controllers
                 
                 return Redirect("/Home/Login");
             }
-            return View(await _context.Accounts.Include(m=>m.Informations).Include(s=>s.Students).Where(t=>t.Role != 1).ToListAsync());
+            var query = _context.Accounts.AsNoTracking().AsQueryable().Include(m => m.Informations).Include(s => s.Students).Where(t => t.Role != 1).OrderBy(s => s.Id);
+            var model = await PagingList.CreateAsync(query, 5, page);
+            return View(model);
         }
 
         // GET: Accounts/Details/5
@@ -198,27 +202,7 @@ namespace ServerProject.Controllers
         {
             return _context.Accounts.Any(e => e.Id == id);
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditMark(long id, [Bind("Id,Value,CourseId,RollNumber")] Marks marks)
-        {
-            if (id != marks.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-               marks.CalculateMarkStatus();
-
-                _context.Update(marks);
-                    await _context.SaveChangesAsync();
-              return RedirectToAction(nameof(Index));
-            }
-            
-            return View(marks);
-        }
+       
         public async Task<IActionResult> EditInfor(int? id)
         {
             if (this.checkSession())
@@ -275,6 +259,58 @@ namespace ServerProject.Controllers
             ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id", informations.AccountId);
             return View(informations);
         }
-        
+        public async Task<IActionResult> Editpass(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var accounts = await _context.Accounts.FindAsync(id);
+            if (accounts == null)
+            {
+                return NotFound();
+            }
+            return View(accounts);
+        }
+
+        // POST: Accounts1/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editpass(int id, [Bind("Id,UserName,Password,ConfirmPassword")] Accounts accounts)
+        {
+            if (id != accounts.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    accounts.Salt = Handlepassword.GetInstance().GenerateSalt();
+                    accounts.Password = Handlepassword.GetInstance()
+                    .EncryptPassword(accounts.Password, accounts.Salt);
+                    accounts.Role = 1;
+                    _context.Update(accounts);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AccountsExists(accounts.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(accounts);
+        }
     }
 }

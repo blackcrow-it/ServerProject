@@ -16,6 +16,8 @@ namespace ServerProject.Controllers
 
     using Newtonsoft.Json;
 
+    using ReflectionIT.Mvc.Paging;
+
     public class GradesController : Controller
     {
         private readonly ServerProjectContext _context;
@@ -37,7 +39,7 @@ namespace ServerProject.Controllers
             return (ck);
         }
         // GET: Grades
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             if (this.checkSession())
             {
@@ -45,7 +47,9 @@ namespace ServerProject.Controllers
                
                 return Redirect("/Home/Login");
             }
-            return View(await _context.Grades.Include(m=>m.GradeCourses).Include(s=>s.StudentGrades).ToListAsync());
+            var query = _context.Grades.AsNoTracking().AsQueryable().Include(m => m.GradeCourses).Include(s => s.StudentGrades).OrderBy(s => s.Id);
+            var model = await PagingList.CreateAsync(query, 5, page);
+            return View(model);
         }
 
         // GET: Grades/Details/5

@@ -11,6 +11,8 @@ namespace ServerProject.Controllers
 {
     using Microsoft.AspNetCore.Http;
 
+    using ReflectionIT.Mvc.Paging;
+
     public class CoursesController : Controller
     {
         private readonly ServerProjectContext _context;
@@ -33,7 +35,7 @@ namespace ServerProject.Controllers
             return (ck);
         }
         // GET: Courses
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             if (this.checkSession())
             {
@@ -41,7 +43,9 @@ namespace ServerProject.Controllers
                
                 return Redirect("/Home/Login");
             }
-            return View(await _context.Courses.ToListAsync());
+            var query = _context.Courses.AsNoTracking().AsQueryable().OrderBy(s => s.Id);
+            var model = await PagingList.CreateAsync(query, 5, page);
+            return View(model);
         }
 
         // GET: Courses/Details/5

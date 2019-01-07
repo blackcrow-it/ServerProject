@@ -24,6 +24,7 @@ namespace ServerProject.Models
         [NotMapped]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
+        
         public string Salt { get; set; }
         public int Role { get; set; }
         public DateTime CreatedAt { get; set; }

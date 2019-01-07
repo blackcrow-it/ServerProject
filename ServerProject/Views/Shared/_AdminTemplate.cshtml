@@ -12,15 +12,15 @@
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     @*<environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>*@
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+        </environment>
+        <environment exclude="Development">
+            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        </environment>*@
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -29,6 +29,7 @@
     <link href="~/assets/css/now-ui-dashboard.css?v=1.2.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="~/assets/demo/demo.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
 <body class="">
@@ -42,7 +43,7 @@
                     <img src="~/images/1_NJTM9ZVfoLQ2vlB3GmfYoA.png" />
                 </a>
                 <a href="#" class="simple-text logo-normal">
-                    Quản                 </a>
+                    Quản Lí                </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -126,7 +127,7 @@
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item"><a asp-area="" id="user" asp-controller="Accounts" @*asp-action="ChangePass/@Context.Session.GetString(" currentLoginId")*@">@Context.Session.GetString("currentLogin")</a></li>
+                            <li class="nav-item"><a asp-area="" id="user"  asp-controller="Accounts" asp-action="Editpass" asp-route-id="@Context.Session.GetString("currentLoginId")" >@Context.Session.GetString("currentLogin")</a></li>
                         </ul>
                     </div>
                 </div>

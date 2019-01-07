@@ -1,66 +1,95 @@
-﻿@model IEnumerable<ServerProject.Models.Accounts>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ServerProject.Models.Accounts>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper* ,ReflectionIT.Mvc.Paging
 
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+    .pagination li {
+        text-align: center;
+        border: solid 1px black;
+        border-radius: 20%;
+        background: #ffffff;
+        
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+        .pagination li:hover {
+            text-align: center;
+            border: solid 1px black;
+            border-radius: 20%;
+            background: #2ca8ff;
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+        }
+</style>
 <div class="col-md-12">
-<div class="card">
-    <div class="card-body">
-        <h2>Danh sách Sinh viên</h2>
+    <div class="card">
+        <div class="card-body">
+            <h2>Danh sách Sinh viên</h2>
 
-        <p>
-            <a asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Thêm học sinh</a>
-        </p>
-        <table class="table">
-            <thead>
-            <tr>
-                <th style="width: 3%">
-                    @Html.DisplayNameFor(model => model.Students.RollNumber)
-                </th>
-                <th>
-                    Họ và tên
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Informations.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Informations.Gender)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Informations.Phone)
-                </th>
-                
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var item in Model) {
+            <p>
+                <a asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Thêm học sinh</a>
+            </p>
+            <table class="table">
+                <thead>
                 <tr>
-                    <td style="width: 3%">
-                        @Html.DisplayFor(modelItem => item.Students.RollNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Informations.FirstName) @Html.DisplayFor(modelItem => item.Informations.MiddleName) @Html.DisplayFor(modelItem => item.Informations.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Informations.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Informations.Gender)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Informations.Phone)
-                    </td>
-                   
-                    <td>
+                    <th style="width: 3%">
+                        @Html.DisplayNameFor(model => model.Students.RollNumber)
+                    </th>
+                    <th>
+                        Họ và tên
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Informations.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Informations.Gender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Informations.Phone)
+                    </th>
 
-                        <a asp-action="EditInfor" class="btn btn-info" asp-route-id="@item.Id">Sửa</a> 
-                        <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a>
-               
-                    </td>
                 </tr>
-            }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="width: 3%">
+                            @Html.DisplayFor(modelItem => item.Students.RollNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Informations.FirstName) @Html.DisplayFor(modelItem => item.Informations.MiddleName) @Html.DisplayFor(modelItem => item.Informations.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Informations.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Informations.Gender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Informations.Phone)
+                        </td>
+
+                        <td>
+
+                            <a asp-action="EditInfor" class="btn btn-info" asp-route-id="@item.Id">Sửa</a>
+                            <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a>
+
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+                <vc:pager paging-list="@Model" />
+            </nav>
+        </div>
     </div>
 </div>
-    </div>
