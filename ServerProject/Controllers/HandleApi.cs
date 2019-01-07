@@ -119,19 +119,6 @@ namespace ServerProject.Controllers
             Response.StatusCode = (int)HttpStatusCode.Forbidden;
             return new JsonResult("Forbidden");
         }
-// List of classes that students are attending
-        [HttpGet("list-class")]
-        public async Task<IActionResult> ListClass()
-        {
-            if (!ModelState.IsValid)
-            {
-                return new JsonResult("BadRequest");
-            }
-            var basicToken = Request.Headers["Authorization"].ToString();
-            var token = basicToken.Replace("Basic ", "");
-            var existToken = _context.Credentials.SingleOrDefault(a => a.AccessToken == token);
-            var existGrade = _context.StudentGrade.ToList();
-            return new JsonResult(existGrade);
-        }
+        // done
     }
 }
