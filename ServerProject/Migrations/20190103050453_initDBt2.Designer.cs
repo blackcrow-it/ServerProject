@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServerProject.Models;
 
 namespace ServerProject.Migrations
 {
     [DbContext(typeof(ServerProjectContext))]
-    partial class ServerProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20190103050453_initDBt2")]
+    partial class initDBt2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,15 +78,9 @@ namespace ServerProject.Migrations
 
                     b.Property<int>("Status");
 
-                    b.Property<int?>("StudentGradeGradeId");
-
-                    b.Property<string>("StudentGradeRollNumber");
-
                     b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("AccessToken");
-
-                    b.HasIndex("StudentGradeRollNumber", "StudentGradeGradeId");
 
                     b.ToTable("Credentials");
                 });
@@ -265,13 +261,6 @@ namespace ServerProject.Migrations
                         .IsUnique();
 
                     b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("ServerProject.Models.Credential", b =>
-                {
-                    b.HasOne("ServerProject.Models.StudentGrade", "StudentGrade")
-                        .WithMany()
-                        .HasForeignKey("StudentGradeRollNumber", "StudentGradeGradeId");
                 });
 
             modelBuilder.Entity("ServerProject.Models.GradeCourse", b =>

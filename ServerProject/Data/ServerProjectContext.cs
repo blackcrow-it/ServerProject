@@ -102,6 +102,7 @@ namespace ServerProject.Models
         public DbSet<ServerProject.Models.Courses> Courses { get; set; }
 
         public DbSet<ServerProject.Models.Marks> Marks { get; set; }
+        public DbSet<ServerProject.Models.Credential> Credentials { get; set; }
 
         //public DbSet<ServerProject.Models.Types> Types { get; set; }
 
