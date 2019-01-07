@@ -23,14 +23,24 @@ namespace ServerProject.Controllers
 
         //// thong tin lop
         //// GET: api/GradeApi
-        ////[HttpGet]
-        ////public IEnumerable<Grades> GetGrades(string nameGrade)
-        ////{
-
-        ////    return _context.Grades.Where(a=> a.Name == nameGrade);
-        ////}
+        [HttpGet("list-student")]
+        public IActionResult GetStudents(int gradeId)
+        {
+            Dictionary<int, int> listStudents = new Dictionary<int, int>();
+            var students = _context.StudentGrade.Where(a => a.GradeId == gradeId);
+            var s = 0;
+            foreach (var item in students)
+            {
+                s++;
+                var studentH = _context.Students.FirstOrDefault(i => i.RollNumber == item.RollNumber);
+                listStudents.Add(s, studentH.AccountId);
+            }
+            var an = listStudents.Values.ToArray();
+            var listStudent = _context.Informations.Where(a => an.Contains(a.AccountId));
+            return new JsonResult(listStudent);
+        }
 
         //GET: api/GradeApi
-        
+
     }
 }
