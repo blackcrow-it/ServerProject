@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace ServerProject.Controllers
         [HttpGet("list-class")]
         public IEnumerable<StudentGrade> GetClass(string rollNumber)
         {
-            return _context.StudentGrade.Where(r => r.RollNumber == rollNumber);
+            return _context.StudentGrade.Where(i => i.RollNumber == rollNumber);
         }
     }
 }

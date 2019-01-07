@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +21,16 @@ namespace ServerProject.Controllers
             _context = context;
         }
 
-// thong tin lop
-        // GET: api/GradeApi
-        [HttpGet]
-        public IEnumerable<Grades> GetGrades(string nameGrade)
-        {
-            return _context.Grades.Where(a=> a.Name == nameGrade);
-        }
+        //// thong tin lop
+        //// GET: api/GradeApi
+        ////[HttpGet]
+        ////public IEnumerable<Grades> GetGrades(string nameGrade)
+        ////{
+
+        ////    return _context.Grades.Where(a=> a.Name == nameGrade);
+        ////}
+
+        //GET: api/GradeApi
+        
     }
 }

@@ -20,6 +20,7 @@ namespace ServerProject.Models
         [Key]
         public string AccessToken { get; set; }
         public int OwnerId { get; set; }
+        public StudentGrade StudentGrade { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime ExpiredAt { get; set; }

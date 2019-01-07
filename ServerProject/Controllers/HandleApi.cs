@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServerProject.Models;
+using ServerProject.Security;
 
 namespace ServerProject.Controllers
 {
@@ -40,8 +41,11 @@ namespace ServerProject.Controllers
                 var existInformations = _context.Informations.SingleOrDefault(i => i.AccountId == existToken.OwnerId);
                 if (existInformations != null)
                 {
+                    var Information = new AdditionRollnumber();
+                    Information.informations = existInformations;
+                    Information.RollNumber = _context.Students.SingleOrDefault(i => i.AccountId == existToken.OwnerId).RollNumber;
                     Response.StatusCode = (int)HttpStatusCode.OK;
-                    return new JsonResult(existInformations);
+                    return new JsonResult(Information);
                 }
                 Response.StatusCode = (int)HttpStatusCode.Forbidden;
                 return new JsonResult("Forbidden");
@@ -107,18 +111,60 @@ namespace ServerProject.Controllers
                 var existAccount = _context.Accounts.SingleOrDefault(i => i.Id == existToken.OwnerId);
                 if (existAccount != null)
                 {
-                    var password = changePassword.newPassword;
-                    existAccount.Password = password;
-                    _context.Accounts.Update(existAccount);
-                    _context.SaveChanges();
-                    Response.StatusCode = (int)HttpStatusCode.OK;
-                    return new JsonResult(existAccount);
-
+                    var password = Handlepassword.GetInstance().EncryptPassword(changePassword.newPassword, existAccount.Salt);  
+                    if(existAccount.Password == Handlepassword.GetInstance().EncryptPassword(changePassword.Password, existAccount.Salt))
+                    {
+                        existAccount.Password = password;
+                        _context.Accounts.Update(existAccount);
+                        _context.SaveChanges();
+                        Response.StatusCode = (int)HttpStatusCode.OK;
+                        return new JsonResult(existAccount);
+                    }
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return new JsonResult("Password not found");
                 }
+
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return new JsonResult("Not Found");
             }
             Response.StatusCode = (int)HttpStatusCode.Forbidden;
             return new JsonResult("Forbidden");
         }
-        // done
+
+// danh sách môn học
+        //GET: api/HandleApi/list-courses
+        [HttpGet("list-courses")]
+        public async Task<IActionResult> ListCourse(string rollNumber)
+        {
+            Dictionary<int, int> courses = new Dictionary<int, int>();
+            var grades = _context.StudentGrade.Where(r => r.RollNumber == rollNumber);
+            var i = 0;
+            foreach (var item in grades)
+            {
+                i++;
+                courses.Add(i, item.GradeId);
+            }
+            var foo = courses.Values.ToArray();
+            var listCourses = _context.Courses.Where(a => foo.Contains(a.Id));
+            return new JsonResult(listCourses);
+        }
+
+// danh sách học sinh trong lớp
+        //GET : api/HandeApi/list-students
+        [HttpGet("list-students")]
+        public async Task<IActionResult> ListStudent(string nameGrade)
+        {
+            Dictionary<string, string> Students = new Dictionary<string, string>();
+            var students = _context.Grades.Where(a => a.Name == nameGrade);
+            var s = 0;
+            foreach (var item in students)
+            {
+                s++;
+                Students.Add(s, item.Name);
+            }
+            var an = Students.Values.ToArray();
+            var listStudent = _context.Students.Where(a => an.Contains(a.RollNumber));
+            return new JsonResult(listStudent);
+        }
     }
 }
