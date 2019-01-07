@@ -16,6 +16,8 @@ namespace ServerProject
 {
     using Microsoft.AspNetCore.Authentication.Cookies;
 
+    using ReflectionIT.Mvc.Paging;
+
     using ServerProject.Middleware;
 
     public class Startup
@@ -43,7 +45,8 @@ namespace ServerProject
                 });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddMvc();
+            services.AddPaging();
             services.AddDbContext<ServerProjectContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ServerProjectContext")));
         }

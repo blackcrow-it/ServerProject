@@ -11,6 +11,8 @@ namespace ServerProject.Controllers
 {
     using Microsoft.AspNetCore.Http;
 
+    using ReflectionIT.Mvc.Paging;
+
     public class MarksController : Controller
     {
         private readonly ServerProjectContext _context;
@@ -32,7 +34,7 @@ namespace ServerProject.Controllers
             return (ck);
         }
         // GET: Marks
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filter, int page = 1, string sortExpression = "Status")
         {
             if (this.checkSession())
             {
@@ -40,9 +42,10 @@ namespace ServerProject.Controllers
                 
                 return Redirect("/Home/Login");
             }
-            var serverProjectContext = _context.Marks.Include(m => m.Courses).Include(m => m.Students);
+            var query = _context.Marks.AsNoTracking().AsQueryable().Include(m => m.Courses).Include(m => m.Students).OrderBy(s => s.RollNumber);
+            var model = await PagingList.CreateAsync(query, 5, page);
+            return View(model);
            
-            return View(await serverProjectContext.ToListAsync());
         }
 
         // GET: Marks/Details/5
