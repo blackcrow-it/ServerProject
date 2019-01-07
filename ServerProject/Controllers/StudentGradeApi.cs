@@ -32,9 +32,19 @@ namespace ServerProject.Controllers
 // danh sách lớp mà 1 học sinh đang học 
 // GET: api/StudentGradeApi/list-class
         [HttpGet("list-class")]
-        public IEnumerable<StudentGrade> GetClass(string rollNumber)
+        public IEnumerable<Grades> GetClass(string rollNumber)
         {
-            return _context.StudentGrade.Where(i => i.RollNumber == rollNumber);
+            Dictionary<int, int> grades = new Dictionary<int, int>();
+            var studentGrades = _context.StudentGrade.Where(r => r.RollNumber == rollNumber);
+            var j = 0;
+            foreach (var item in studentGrades)
+            {
+                j++;
+                grades.Add(j, item.GradeId);
+            }
+            var too = grades.Values.Distinct().ToArray();
+            var listGrades = _context.Grades.Where(g => too.Contains(g.Id));
+            return listGrades;
         }
     }
 }

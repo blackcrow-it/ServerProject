@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ServerProject.Models
 {
@@ -22,7 +23,9 @@ namespace ServerProject.Models
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        [JsonIgnore]
         public List<Marks> Markses { get; set; }
+        [JsonIgnore]
         public List<GradeCourse> GradeCourses { get; set; }
 
     }
