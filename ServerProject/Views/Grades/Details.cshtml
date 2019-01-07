@@ -118,7 +118,7 @@
                                 isEmpty = !listMark.Any();
                                 if (isEmpty)
                                 {
-                                    <td>
+                                    <td >
                                         <p>Chưa có điểm</p>
                                     </td>
                                     isNull = isEmpty;
@@ -135,6 +135,7 @@
                                                 @if (@m.Status == MarkStatus.PASS)
                                                 {
                                                     <label class="label label-success">@m.Status</label>
+                                                    
                                                 }
                                                 else
                                                 {

@@ -29,7 +29,7 @@
         <img src="@Model.Informations.Avatar" width="200px" class="center-block img-circle" />
         <dl class="dl-horizontal">
             <dt>
-                Full name
+                Tên
             </dt>
             
             <dd>
@@ -60,7 +60,7 @@
             <dd>
                 @foreach (var i in listSt.Where(s=>s.RollNumber == Model.Students.RollNumber))
                 {
-                    if (i.RollNumber == null)
+                    if (i.Grades == null)
                      {
                             <h4>Null</h4>
                      }

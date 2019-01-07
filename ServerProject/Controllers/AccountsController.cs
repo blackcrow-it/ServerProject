@@ -255,12 +255,8 @@ namespace ServerProject.Controllers
 
             if (ModelState.IsValid)
             {
-                var exisEmail2 = this._context.Informations.SingleOrDefault(a => a.Email == informations.Email);
-                if (exisEmail2 != null)
-                {
-                    TempData["fail2"] = "Email đã được sử dụng";
-                    return RedirectToAction(nameof(EditInfor));
-                }
+                
+               
                 try
                 {
                     _context.Update(informations);
