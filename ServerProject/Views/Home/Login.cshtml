@@ -65,6 +65,7 @@
             height: 50px;
             line-height: 50px;
             padding: 0;
+            
         }
 
         .forgot {
@@ -101,28 +102,30 @@
 
     <div class="login-form">
         <div class="main-div">
+            
             <div class="panel">
-                <h2>Admin Login</h2>
-                <p>Please enter your email and password</p>
+                <h2><b>Đăng nhập giáo vụ</b></h2>
+                <p>Vui lòng nhập tên đăng nhập và mật khẩu</p>
             </div>
-            <form asp-action="Login">
-                <h5 class="text-danger">@TempData["fail"]</h5>
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="UserName" class="control-label"></label>
-                    <input asp-for="UserName" class="form-control"/>
+                <form asp-action="Login">
+                    <h5 class="text-danger">@TempData["fail"]</h5>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label"><b>Tên đăng nhập</b></label>
+                        <input asp-for="UserName" required="required" class="form-control"/>
 
-                </div>
+                    </div>
 
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" type="password" class="form-control"/>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"><b>Mật khẩu</b></label>
+                        <input asp-for="Password" required="required" type="password" class="form-control"/>
 
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Login" class="btn btn-success"/>
-                </div>
-            </form>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Đăng nhập" class="btn btn-success"/>
+                    </div>
+                </form>
+            
         </div>
             
     </div>

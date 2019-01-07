@@ -46,7 +46,7 @@ namespace ServerProject.Controllers
                 {
                     HttpContext.Session.SetString("currentLogin", existAccount.UserName);
                     HttpContext.Session.SetString("currentLoginId", existAccount.Id.ToString());
-                    
+                  
                     HttpContext.Session.SetString("currentLoginRole", existAccount.Role.ToString());
                    
                     return Redirect("/Grades/Index");

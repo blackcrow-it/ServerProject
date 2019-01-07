@@ -64,6 +64,8 @@ namespace ServerProject.Models
         //public Types Types { get; set; }
         public Courses Courses { get; set; }
         public MarkStatus Status { get; set; }
+
+
     }
 
     public enum MarkType

@@ -41,6 +41,7 @@ namespace ServerProject.Controllers
                 return Redirect("/Home/Login");
             }
             var serverProjectContext = _context.Marks.Include(m => m.Courses).Include(m => m.Students);
+           
             return View(await serverProjectContext.ToListAsync());
         }
 
