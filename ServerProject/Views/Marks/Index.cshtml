@@ -28,6 +28,11 @@
         height: 30px;
         line-height: 30px;
     }
+    .card label {
+        font-size: 0.8571em;
+        margin-bottom: 5px;
+        color: #fff;
+    }
 </style>
     <div class="col-md-12">
         <div class="card">
@@ -83,12 +88,19 @@
                                     @Html.DisplayFor(modelItem => item.Courses.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
+                                    @if (@item.Status == MarkStatus.PASS)
+                                    {
+                                        <label class="label label-success">@item.Status</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="label label-danger">@item.Status</label>
+                                    }
                                 </td>
                                 <td>
                                     <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Sửa</a>
                                     <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a>
-                                    <a asp-action="Delete" class="btn btn-info" asp-route-id="@item.Id">xóa</a>
+                                    
                                 </td>
                             </tr>
                         }
