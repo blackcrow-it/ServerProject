@@ -92,7 +92,13 @@
                                                     <div class="row">
                                                         <div class="col-10" style="margin-top: 10px">
                                                             <h5 style="text-align: left; float: left; margin-top:4px">Vui lòng chọn môn học &nbsp;</h5>
-                                                            <select class="form-control " name="changeId" asp-items="ViewBag.CourseId" ; style="width: 100px"></select>
+                                                            
+                                                            <select class="form-control " name="changeId" style="width: 100px" >
+                                                                @foreach (var classc in list)
+                                                                {
+                                                                    <option value="@classc.CourseId">@classc.Courses.Name</option>
+                                                                }
+                                                            </select>
                                                         </div>
 
                                                         <div class="col-2"><input class="pull-right btn btn-info" id="ChangeIdc" type="submit" value="Đồng ý" /></div>
