@@ -36,55 +36,56 @@
             <p>
                 <a asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Thêm học sinh</a>
             </p>
+            <h5 class="text-danger">@TempData["fail"]</h5>
             <table class="table">
                 <thead>
-                <tr>
-                    <th style="width: 3%">
-                        @Html.DisplayNameFor(model => model.Students.RollNumber)
-                    </th>
-                    <th>
-                        Họ và tên
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Informations.Email)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Informations.Gender)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Informations.Phone)
-                    </th>
+                    <tr>
+                        <th style="width: 3%">
+                            @Html.DisplayNameFor(model => model.Students.RollNumber)
+                        </th>
+                        <th>
+                            Họ và tên
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Informations.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Informations.Gender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Informations.Phone)
+                        </th>
 
-                </tr>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td style="width: 3%">
-                            @Html.DisplayFor(modelItem => item.Students.RollNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Informations.FirstName) @Html.DisplayFor(modelItem => item.Informations.MiddleName) @Html.DisplayFor(modelItem => item.Informations.LastName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Informations.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Informations.Gender)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Informations.Phone)
-                        </td>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="width: 3%">
+                                @Html.DisplayFor(modelItem => item.Students.RollNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Informations.FirstName) @Html.DisplayFor(modelItem => item.Informations.MiddleName) @Html.DisplayFor(modelItem => item.Informations.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Informations.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Informations.Gender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Informations.Phone)
+                            </td>
 
-                        <td>
+                            <td>
 
-                            <a asp-action="EditInfor" class="btn btn-info" asp-route-id="@item.Id">Sửa</a>
-                            <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a>
+                                <a asp-action="EditInfor" class="btn btn-info" asp-route-id="@item.Id">Sửa</a>
+                                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Chi tiết</a>
 
-                        </td>
-                    </tr>
-                }
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
             <nav aria-label="Page navigation example">

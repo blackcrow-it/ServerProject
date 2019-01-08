@@ -18,17 +18,23 @@
         line-height: 30px;
     }
 
-        .pagination li:hover {
-            text-align: center;
-            border: solid 1px white;
-            border-radius: 20%;
-            background: #2ca8ff;
-            margin-right: 10px;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-        }
+    .pagination li:hover {
+        text-align: center;
+        border: solid 1px white;
+        border-radius: 20%;
+        background: #2ca8ff;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+    .card label {
+        font-size: 0.8571em;
+        margin-bottom: 5px;
+        color: #fff;
+    }
 </style>
+
 <div class="col-md-12">
     <div class="card">
         <div class="card-body">
@@ -37,6 +43,7 @@
             <p>
                 <a asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>Thêm lớp</a>
             </p>
+            
             <table class="table">
                 <thead>
                     <tr>

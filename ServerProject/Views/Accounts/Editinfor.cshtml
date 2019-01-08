@@ -3,119 +3,129 @@
 @{
     ViewData["Title"] = "Edit";
 }
-<div class="col-md-12">
+<div class="col-md-8">
     <div class="card">
-        <div class="card-body">
-            <h2>Sửa thông tin</h2>
-
+        <div class="card-header">
+            <h5 class="title">Sửa thông tin</h5>
             <a asp-action="Index" class="btn btn-primary"><span class="glyphicon glyphicon-menu-left"></span> Quay lại</a>
-            <hr />
-            <div class="container ">
+        </div>
+        <div class="card-body">
+            <form asp-action="EditInfor">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="AccountId" />
+                <input type="hidden" asp-for="Email" />
+                <div class="row">
+                    <div class="col-md-4 pr-1">
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-1">
+                        <div class="form-group">
+                            <label asp-for="MiddleName" class="control-label"></label>
+                            <input asp-for="MiddleName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                        <div class="form-group">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 pr-1">
+                        <div class="form-group">
+                            <label asp-for="Avatar" class="control-label"></label>
+                            <input asp-for="Avatar" id="ava" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
 
                 <div class="row">
-                    <div class="col-sm-3">
-                        <!--left col-->
 
-
-                        <div class="text-center">
-                            <img src="@Model.Avatar" class="center-block img-circle img-thumbnail"  id="imgs" alt="avatar">
-                        </div><br>
-                    </div><!--/col-3-->
-                    <div class="col-sm-9">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="home">
-
-                                <form asp-action="EditInfor">
-                                    <h5 class="text-danger">@TempData["fail2"]</h5>
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-                                    <input type="hidden" asp-for="AccountId" />
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label asp-for="Email" class="control-label"></label>
-                                            <input asp-for="Email" class="form-control" />
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label asp-for="Avatar" class="control-label"></label>
-                                            <input asp-for="Avatar" id="ava" class="form-control" />
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label asp-for="FirstName" class="control-label"></label>
-                                            <input asp-for="FirstName" class="form-control" />
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label asp-for="Phone" class="control-label"></label>
-                                            <input asp-for="Phone" class="form-control " />
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label asp-for="LastName" class="control-label"></label>
-                                            <input asp-for="LastName" class="form-control" />
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label asp-for="Address" class="control-label"></label>
-                                            <input asp-for="Address" class="form-control" />
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label asp-for="MiddleName" class="control-label"></label>
-                                            <input asp-for="MiddleName" class="form-control" />
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label asp-for="Birthday" class="control-label"></label>
-                                            <input asp-for="Birthday" class="form-control" />
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label asp-for="Gender" class="control-label"></label>
-                                            <select asp-for="Gender" class="form-control">
-                                                <option value="1">Male</option>
-                                                <option value="0">Female</option>
-                                                <option value="2">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <input type="submit" value="Sửa" class="btn btn-primary " style="margin-top: 3%" />
-                                        </div>
-                                    </div>
-                                </form>
-                                <hr>
-
-                            </div><!--/tab-pane-->
-
-                        </div><!--/col-9-->
-                    </div><!--/row-->
+                    <div class="col-md-5 pl-1">
+                        <div class="form-group">
+                            <label asp-for="Birthday" class="control-label"></label>
+                            <input asp-for="Birthday" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-5 pl-1">
+                        <div class="form-group">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 pl-1">
+                        <div class="form-group">
+                            <label asp-for="Gender" class="control-label"></label>
+                            <select asp-for="Gender" class="form-control">
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                                <option value="2">Other</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-md-12 pr-1">
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label"></label>
+                            <input asp-for="Address" class="form-control" />
+                        </div>
+                    </div>
 
-
+                </div>
+                <div class="row">
+                    <input type="reset" value="Reset" class="btn btn-primary " />
+                    <input type="submit" value="Edit" id="avachange" class="btn btn-primary " />
+                </div>
+            </form>
         </div>
     </div>
 </div>
-            @section Scripts {
-                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-            }
+<div class="col-md-4">
+    <div class="card card-user">
+        <div class="image">
+
+        </div>
+        <div class="card-body">
+            <div class="author">
+                <a href="#">
+                    <img class="avatar border-gray" id="imgs" src="@Model.Avatar" >
+                    <h5 class="title"> @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.MiddleName) @Html.DisplayFor(model => model.LastName)</h5>
+                </a>
+
+
+                SDT: @Html.DisplayFor(model => model.Phone)<br />
+
+
+
+                Địa chỉ: @Html.DisplayFor(model => model.Address)<br />
+
+
+
+                Sinh nhật: @Html.DisplayFor(model => model.Birthday)<br />
+
+                
+            </div>
+            <hr>
+            <div class="button-container">
+                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                    <i class="fab fa-twitter"></i>
+                </button>
+                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                    <i class="fab fa-google-plus-g"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

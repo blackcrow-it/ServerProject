@@ -54,7 +54,22 @@ namespace ServerProject.Controllers
             var model = await PagingList.CreateAsync(query, 5, page);
             return View(model);
         }
+        [HttpPost]
+        public async Task<IActionResult> Index(string rollnumber , int page = 1)
+        {
+            if (this.checkSession())
+            {
+                Response.StatusCode = 403;
 
+                return Redirect("/Home/Login");
+            }
+
+
+            var query = _context.Accounts.AsNoTracking().AsQueryable().Include(m => m.Informations).Include(s => s.Students).Where(t => t.Role != 1).Where(d=>d.Students.RollNumber == rollnumber).OrderBy(s => s.Id);
+            var model = await PagingList.CreateAsync(query, 5, page);
+            
+            return View(model);
+        }
         // GET: Accounts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -239,12 +254,7 @@ namespace ServerProject.Controllers
 
             if (ModelState.IsValid)
             {
-                var exisEmail2 = this._context.Informations.SingleOrDefault(a => a.Email == informations.Email);
-                if (exisEmail2 != null)
-                {
-                    TempData["fail2"] = "Email đã được sử dụng";
-                    return RedirectToAction(nameof(EditInfor));
-                }
+                
                 try
                 {
                     _context.Update(informations);

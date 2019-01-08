@@ -13,6 +13,11 @@
     #edit_bth {
         margin-right: 1%;
     }
+    .card label {
+        font-size: 0.8571em;
+        margin-bottom: 5px;
+        color: #fff;
+    }
 </style>
 <div class="col-md-12">
     <div class="card">
@@ -144,7 +149,7 @@
                                                         <td style="display: none">@m.CourseId</td>
                                                         <td>
                                                             <p>
-                                                                @m.Value
+                                                                <span id="@m.Id" class="@m.Type">@m.Value</span>
                                                                 @if (@m.Status == MarkStatus.PASS)
                                                                 {
                                                                     <label class="label label-success">@m.Status</label>
@@ -344,52 +349,6 @@
                 </div>
             </div>
 
-            <!---------modal2----------->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Sửa điểm</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-            <div class="modal-body col-lg-12">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Mã sinh viên</th>
-                        <th>Họ tên</th>
-                        <th style="width: 20%">Điểm</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <form>
-                        @foreach (var i in listSt)
-                        {
-                            <tr>
-
-                                <td>@i.Students.RollNumber </td>
-                                <td>@i.Students.Accounts.Informations.FirstName @i.Students.Accounts.Informations.MiddleName @i.Students.Accounts.Informations.LastName</td>
-                                <td>
-                                    <input title="@i.RollNumber" type="text" class="roll form-control" name="value" />
-                                </td>
-
-
-                            </tr>
-
-                        }
-                    </form>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button id="test" class="btn btn-success" data-dismiss="modal">Thêm điểm</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!---------modal2----------->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -449,12 +408,14 @@
             var Id = $(this).parent().parent().find('td:eq(5)').text();
             var Al = $(this).parent().parent().find('td:eq(8)').text();
 
+            
 
             $('#crId').val(rl);
             $('#rollum').val(cr);
             $('#value1').prop('title', roll);
             $('#value2').prop('title', Id);
             $('#value3').prop('title', Al);
+
         });
 
 

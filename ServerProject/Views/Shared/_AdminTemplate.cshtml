@@ -29,118 +29,183 @@
     <link href="~/assets/css/now-ui-dashboard.css?v=1.2.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="~/assets/demo/demo.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
 <body class="">
-    <div class="wrapper ">
-        <div class="sidebar" data-color="orange">
-            <!--
-            Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-            -->
-            <div class="logo">
-                <a href="#" class="simple-text logo-mini">
-                    <img src="~/images/1_NJTM9ZVfoLQ2vlB3GmfYoA.png" />
-                </a>
-                <a href="#" class="simple-text logo-normal">Quản Lí</a>
-            </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li>
-                        <a asp-area="" asp-controller="Home" asp-action="Index">
-                            <i class="now-ui-icons design_app"></i>
-                            <p>Trang chủ</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="Courses" asp-action="Index">
-                            <i class="now-ui-icons education_atom"></i>
-                            <p>Danh sách môn học</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="Grades" asp-action="Index">
-                            <i class="now-ui-icons location_map-big"></i>
-                            <p>Danh sách lớp học</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="Accounts" asp-action="Index">
-                            <i class="now-ui-icons education_hat"></i>
-                            <p>Danh sách sinh viên</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="Marks" asp-action="Index">
-                            <i class="now-ui-icons business_badge"></i>
-                            <p>Danh sách điểm</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<style>
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .label {
+        display: inline;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+    .label:empty {
+        display: none;
+    }
+    .label-default {
+        background-color: #777;
+    }
+    .label-default[href]:hover,
+    .label-default[href]:focus {
+        background-color: #5e5e5e;
+    }
+    .label-primary {
+        background-color: #337ab7;
+    }
+    .label-primary[href]:hover,
+    .label-primary[href]:focus {
+        background-color: #286090;
+    }
+    .label-success {
+        background-color: #5cb85c;
+    }
+    .label-success[href]:hover,
+    .label-success[href]:focus {
+        background-color: #449d44;
+    }
+    .label-info {
+        background-color: #5bc0de;
+    }
+    .label-info[href]:hover,
+    .label-info[href]:focus {
+        background-color: #31b0d5;
+    }
+    .label-warning {
+        background-color: #f0ad4e;
+    }
+    .label-warning[href]:hover,
+    .label-warning[href]:focus {
+        background-color: #ec971f;
+    }
+    .label-danger {
+        background-color: #d9534f;
+    }
+    .label-danger[href]:hover,
+    .label-danger[href]:focus {
+        background-color: #c9302c;
+    }
+    
+</style>
+<div class="wrapper ">
+    <div class="sidebar" data-color="orange">
+        <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+        -->
+        <div class="logo">
+            <a href="#" class="simple-text logo-mini">
+                <img src="~/images/1_NJTM9ZVfoLQ2vlB3GmfYoA.png"/>
+            </a>
+            <a href="#" class="simple-text logo-normal">Quản Lí</a>
         </div>
-        <div class="main-panel">
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg fixed-top navbar-transparent  bg-primary  navbar-absolute">
-                <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <div class="navbar-toggle">
-                            <button type="button" class="navbar-toggler">
-                                <span class="navbar-toggler-bar bar1"></span>
-                                <span class="navbar-toggler-bar bar2"></span>
-                                <span class="navbar-toggler-bar bar3"></span>
-                            </button>
-                        </div>
-                        <a class="navbar-brand" href="#pablo">Trang chủ</a>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="now-ui-icons design_app"></i>
+                        <p>Trang chủ</p>
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Courses" asp-action="Index">
+                        <i class="now-ui-icons education_atom"></i>
+                        <p>Danh sách môn học</p>
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Grades" asp-action="Index">
+                        <i class="now-ui-icons location_map-big"></i>
+                        <p>Danh sách lớp học</p>
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Accounts" asp-action="Index">
+                        <i class="now-ui-icons education_hat"></i>
+                        <p>Danh sách sinh viên</p>
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Marks" asp-action="Index">
+                        <i class="now-ui-icons business_badge"></i>
+                        <p>Danh sách điểm</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-transparent  bg-primary  navbar-absolute">
+            <div class="container-fluid">
+                <div class="navbar-wrapper">
+                    <div class="navbar-toggle">
+                        <button type="button" class="navbar-toggler">
+                            <span class="navbar-toggler-bar bar1"></span>
+                            <span class="navbar-toggler-bar bar2"></span>
+                            <span class="navbar-toggler-bar bar3"></span>
+                        </button>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                        <form>
-                            <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Tìm kiếm sinh viên...">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="now-ui-icons ui-1_zoom-bold"></i>
-                                    </div>
+                    <a class="navbar-brand" href="#pablo">Trang chủ</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                    <form asp-controller="Accounts" asp-action="Index">
+                        <div class="input-group no-border">
+                            <input type="text" name="rollnumber" class="form-control" placeholder="Tìm kiếm sinh viên...">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="now-ui-icons ui-1_zoom-bold"></i>
                                 </div>
                             </div>
-                        </form>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" id="bth_login" asp-controller="Home" asp-action="Login">
-                                    <i class="now-ui-icons users_single-02"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Login</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="bth_logout" asp-controller="Home" asp-action="logout">
-                                    <i class="now-ui-icons sport_user-run"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Logout</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item"><a asp-area="" id="user"  asp-controller="Accounts" asp-action="Editpass" asp-route-id="@Context.Session.GetString("currentLoginId")" >@Context.Session.GetString("currentLogin")</a></li>
-                        </ul>
-                    </div>
+                        </div>
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" id="bth_login" asp-controller="Home" asp-action="Login">
+                                <i class="now-ui-icons users_single-02"></i>
+                                <p>
+                                    <span class="d-lg-none d-md-block">Login</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="bth_logout" asp-controller="Home" asp-action="logout">
+                                <i class="now-ui-icons sport_user-run"></i>
+                                <p>
+                                    <span class="d-lg-none d-md-block">Logout</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item"><a asp-area="" id="user" asp-controller="Accounts" asp-action="Editpass" asp-route-id="@Context.Session.GetString("currentLoginId")">@Context.Session.GetString("currentLogin")</a></li>
+                    </ul>
                 </div>
-            </nav>
-            <!-- End Navbar -->
-            @*<div class="panel-header panel-header-lg">
+            </div>
+        </nav>
+        <!-- End Navbar -->
+        @*<div class="panel-header panel-header-lg">
                     <canvas id="bigDashboardChart"></canvas>
                 </div>*@
-            <partial name="_CookieConsentPartial" />
-            <div class="panel-header panel-header-sm">
-            </div>
-            <div class="content">
+        <partial name="_CookieConsentPartial"/>
+        <div class="panel-header panel-header-sm">
+        </div>
+        <div class="content">
             <div class="row">
-                            @RenderBody()
+                @RenderBody()
             </div>
             <footer class="footer">
                 <div class="container">
@@ -188,26 +253,26 @@
     <script src="~/assets/js/now-ui-dashboard.min.js?v=1.2.0" type="text/javascript"></script>
     <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
     <script src="~/assets/demo/demo.js"></script>
-<script>
-    $(document).ready(function () {
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
+    <script>
+        $(document).ready(function() {
+            // Javascript method's body can be found in assets/js/demos.js
+            demo.initDashboardPageCharts();
 
-    });
-</script>
-<script>
-    $('#user').html();
+        });
+    </script>
+    <script>
+        $('#user').html();
 
-    if ($('#user').html() != "") {
-        $('#bth_login').remove();
-    } else {
-        $('#bth_logout').remove();
-    }
-    
+        if ($('#user').html() != "") {
+            $('#bth_login').remove();
+        } else {
+            $('#bth_logout').remove();
+        }
 
-</script>
-@RenderSection("Scripts", required: false)
-    </div>
+
+    </script>
+    @RenderSection("Scripts", required: false)
+</div>
 </body>
 
 </html>
