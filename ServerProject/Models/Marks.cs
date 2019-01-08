@@ -53,6 +53,7 @@ namespace ServerProject.Models
         [Display(Name = "Loại điểm")]
         public MarkType Type { get; set; }
         [Display(Name = "điểm")]
+        [Range(1, 15)]
         public int Value { get; set; }
         public string RollNumber { get; set; }
         public int TypeMark { get; set; }

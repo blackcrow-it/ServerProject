@@ -336,7 +336,7 @@
                                                 <td>@i.Students.RollNumber </td>
                                                 <td>@i.Students.Accounts.Informations.FirstName @i.Students.Accounts.Informations.MiddleName @i.Students.Accounts.Informations.LastName</td>
                                                 <td>
-                                                    <input title="@i.RollNumber" type="text" class="roll form-control" name="value" />
+                                                    <input title="@i.RollNumber" type="text"  class="roll form-control" name="value" />
                                                 </td>
 
 
@@ -369,11 +369,11 @@
                 <form method="post">
                     <input type="hidden" id="crId" />
                     <input type="hidden" id="rollum" />
-                    Điểm lí thuyết: <input type="number" id="value1" class="form-control Idm" style="1" name="Value">
+                    Điểm lí thuyết: <input type="number" id="value1" max="10" min="0" class="form-control Idm" style="1" name="Value">
 
-                    Điểm thực hành: <input type="number" id="value2" class="form-control Idm" style="2" name="Value">
+                    Điểm thực hành: <input type="number" id="value2" max="15" min="0" class="form-control Idm" style="2" name="Value">
 
-                    Điểm bài tập lớn: <input type="number" id="value3" class="form-control Idm" style="3" name="Value">
+                    Điểm bài tập lớn: <input type="number" id="value3" max="10" min="0" class="form-control Idm" style="3" name="Value">
 
                             </form>
                         </div>
